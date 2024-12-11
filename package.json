@@ -2,7 +2,7 @@
   "name": "filmoteka-project-team3",
   "version": "2.0.0",
   "description": "",
-  "homepage": "https://github.com/moiseflori/filmoteka-project-team3",
+  "homepage": "https://moiseflori.github.io/filmoteka-project-team3/",
   "scripts": {
     "start": "parcel src/*.html",
     "build": "parcel build src/*.html --public-url /filmoteka-project-team3/"
