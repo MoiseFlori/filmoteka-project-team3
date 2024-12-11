@@ -1,0 +1,1 @@
+// Generating and displaying the list of movies.

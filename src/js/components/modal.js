@@ -1,0 +1,1 @@
+// Logic for opening and closing a modal with movie details.

@@ -1,0 +1,1 @@
+// Logic for the search bar (including input events)

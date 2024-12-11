@@ -1,23 +1,24 @@
 {
-  "name": "parcel-project-template",
+  "name": "filmoteka-project-team3",
   "version": "2.0.0",
   "description": "",
-  "homepage": "https://goitacademy.github.io/parcel-project-template",
+  "homepage": "https://github.com/moiseflori/filmoteka-project-team3",
   "scripts": {
     "start": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /parcel-project-template/"
+    "build": "parcel build src/*.html --public-url /filmoteka-project-team3/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/goitacademy/parcel-project-template.git"
+    "url": "git+https://github.com/moiseflori/filmoteka-project-team3.git"
   },
   "keywords": [],
   "author": "Alexander Repeta <alexander.repeta@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/goitacademy/parcel-project-template/issues"
+    "url": "https://github.com/moiseflori/filmoteka-project-team3/issues"
   },
   "dependencies": {
+    "axios": "^1.7.9",
     "modern-normalize": "^1.1.0"
   },
   "devDependencies": {
