@@ -2,3 +2,4 @@
 // fetchPopularMovies()
 // fetchMovieById(id)
 // searchMovies(query, page)
+import { BASE_URL, API_KEY } from './config.js';
