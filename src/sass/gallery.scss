@@ -1,0 +1,201 @@
+@import './breakpoints';
+@import './variables';
+@import './common';
+
+ul.movies {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Stiluri generale pentru secțiunea galeriei */
+.gallery {
+  padding: 60px 0; /* Spațiu vertical în jurul galeriei */
+}
+
+/* Grila de filme pentru afișare */
+.movies,
+.movies-lib {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+
+  @media screen and (min-width: $tablet) {
+    justify-content: center;
+  }
+
+  @media screen and (min-width: $desktop) {
+    justify-content: flex-start;
+  }
+}
+
+/* Cardurile individuale ale filmelor */
+.movie_list_item {
+    position: relative;
+    width: 280px;
+    font-size: 12px;
+    transition: scale 250ms;
+  
+    @media screen and (min-width: $tablet) {
+      width: 336px;
+      font-size: 12px;
+    }
+  
+    @media screen and (min-width: $desktop) {
+      flex-basis: calc((100% - 32px) / 3);
+      font-size: 20px;
+    }
+  }
+
+/* Efect hover pentru scalare */
+.movie_list_item:hover {
+  transform: scale(1.02); /* Scalare corectă */
+}
+
+/* Containere pentru imaginea filmului */
+.movie__cover-inner {
+    position: relative;
+    // height: 360px;
+  }
+
+.movie__cover {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Informații despre film */
+.movie-info {
+    padding: 10px 0px;
+  }
+
+.movie-title {
+  color: black; /* Culoarea textului */
+  font-weight: 500; /* Text puțin mai îngroșat */
+}
+
+.movie-date {
+  color: #ff6b08; /* Culoarea textului datei */
+  font-weight: 500; /* Text puțin mai îngroșat */
+}
+
+/* Rating-ul filmului */
+.movie__average {
+  position: absolute; /* Poziționare în colțul dreapta-sus */
+  top: 10px;
+  right: 10px;
+  border-radius: 50%; /* Formă rotundă */
+  width: 36px;
+  height: 36px;
+  display: flex; /* Centrare cu Flexbox */
+  justify-content: center;
+  align-items: center;
+  background-color: black; /* Fundal negru */
+  color: #ffffff; /* Text alb */
+  font-size: 14px; /* Dimensiunea textului */
+}
+
+/* Modificatori pentru rating-ul filmului (culori variabile) */
+.movie__average--green {
+  color: green; /* Rating mare */
+  border: 1px solid green;
+}
+
+.movie__average--orange {
+  border: 1px solid orange; /* Rating mediu */
+  color: orange;
+}
+
+.movie__average--red {
+  border: 1px solid red; /* Rating scăzut */
+  color: red;
+}
+
+/* Efect de "întunecare" pentru imagine */
+.movie__cover--darkened {
+  opacity: 0.3; /* Vizibilitate mai bună */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: 100%;
+  height: 100%;
+  z-index: 1;
+  border-radius: 5px; /* Colțuri rotunjite */
+}
+
+.movie__cover--darkened:hover {
+  background-color: rgba(0, 0, 0, 0.5); /* Fundal semi-transparent */
+  cursor: pointer; /* Cursor pointer */
+}
+
+/* Fallback vizual pentru notificări */
+.watched-img {
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.04),
+      rgba(0, 0, 0, 0.04)
+    ),
+    url(../images/no-signal.jpg); /* Imaginea de fallback */
+  background-size: cover; /* Imaginea acoperă complet containerul */
+  background-repeat: no-repeat; /* Imaginea nu se repetă */
+  background-position: center; /* Imaginea centrată */
+  height: 300px; /* Dimensiuni implicite */
+  width: 320px;
+  margin: 0 auto; /* Centrare pe orizontală */
+  text-align: center; /* Text centrat */
+  padding-top: 75px;
+
+  @media screen and (min-width: $tablet) {
+    height: 380px; /* Dimensiuni mai mari pentru tablete */
+    width: 650px;
+    padding-top: 100px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    height: 425px; /* Dimensiuni mai mari pentru desktop */
+    width: 800px;
+    padding-top: 115px;
+  }
+}
+
+/* Text pentru notificarea fallback */
+.watched-warning {
+  color: #fff; /* Text alb */
+  font-size: 18px;
+  line-height: 1.2; /* Spațiere între rânduri */
+  max-width: 250px; /* Lățime maximă */
+  margin: 0 auto; /* Centrare pe orizontală */
+  background-color: black; /* Fundal negru */
+  text-transform: uppercase; /* Text cu majuscule */
+
+  @media screen and (min-width: $tablet) {
+    font-size: 20px;
+    line-height: 1.5;
+    max-width: 450px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    font-size: 25px;
+    line-height: 1.6;
+    max-width: 550px;
+  }
+}
+
+/* Imaginea filmului din lista */
+.movie_list_image {
+  border-radius: 5px; /* Colțuri rotunjite */
+
+  @media screen and (min-width: $desktop) {
+    height: 592.5px; /* Înălțime specifică pentru desktop */
+  }
+}
+
+/* Imagine de notificare când nu există filme */
+.meme-notif-nothing {
+  display: none; /* Ascunsă implicit */
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px; /* Colțuri rotunjite */
+}
