@@ -1,0 +1,204 @@
+
+.modal-wrapper {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Vizibilitate când modalul este activ */
+.modal-wrapper.open {
+    display: flex;
+}
+
+/* Modal Layout */
+#movie-modal {
+    background-color: #fff;
+    margin: 0 auto;
+    padding: 40px 20px;
+    width: 100%;
+    max-width: 900px;
+    /* Max width of the modal */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: flex-start;
+    /* Aliniere corectă */
+}
+
+/* Poster Section */
+#poster-section {
+    width: 50%;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+#poster-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Trailer Button */
+.trailer-btn {
+    position: absolute;
+    font-size: 50px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #f2936d;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 250ms ease, color 250ms ease;
+}
+
+.trailer-btn:hover {
+    color: #ff6b08;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Movie Details */
+#movie-details {
+    padding: 20px;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    /* 50% din lățimea modalului */
+}
+
+#movie-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#movie-description {
+    margin-bottom: 20px;
+}
+
+.description-item {
+    margin-bottom: 10px;
+}
+
+.description-item span {
+    font-weight: bold;
+}
+
+#movie-genre {
+    color: #ff6b08;
+}
+
+#movie-about {
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+
+/* Buttons Section */
+.button-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+#watched-button,
+#queue-button {
+    padding: 14px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid #ff6b08;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#watched-button {
+    color: #ff6b08;
+}
+
+#queue-button {
+    color: #333;
+    border-color: #333;
+}
+
+#watched-button:hover,
+#queue-button:hover {
+    background-color: #ff6b08;
+    color: #fff;
+}
+
+/* Backdrop */
+#modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+}
+
+/* Responsive Layout */
+@media screen and (max-width: 992px) {
+    #movie-modal {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    #poster-section {
+        height: 250px;
+    }
+
+    #movie-title {
+        font-size: 28px;
+    }
+
+    .button-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    #movie-modal {
+        padding: 20px;
+        width: 100%;
+    }
+
+    #poster-section {
+        height: 200px;
+    }
+
+    #movie-details {
+        font-size: 14px;
+    }
+
+    #film-img {
+        width: 100%;
+        height: 180px;
+    }
+
+    .button-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+}
