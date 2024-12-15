@@ -1,0 +1,66 @@
+<div id="modal-container" class="modal-wrapper">
+  <div id="movie-modal">
+    <div id="modal-backdrop" class="backdrop"></div>
+    <div id="movie-details">
+      <div id="modal-content">
+        <div id="poster-section" class="img-posters">
+          <div id="poster-image" alt="Film Image">
+            <button class="trailer-btn" id="trailer-button" type="button">
+              <svg class="trailer-icon">
+                <use
+                  class="trailer-icon"
+                  href="./images/icons.svg#trailer-btn"
+                ></use>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div id="details-section">
+          <h2 id="movie-title"></h2>
+          <div id="movie-description">
+            <div class="description-item">
+              <span>Votes:</span>
+              <div id="movie-votes"></div>
+            </div>
+            <div class="description-item">
+              <span>Popularity:</span>
+              <div id="movie-popularity"></div>
+            </div>
+            <div class="description-item">
+              <span>Original title:</span>
+              <div id="original-title"></div>
+            </div>
+            <div class="description-item">
+              <span>Genre:</span>
+              <div id="movie-genre"></div>
+            </div>
+          </div>
+          <div class="about-wrapper">
+            <span>About:</span>
+            <div id="movie-about"></div>
+          </div>
+
+          <div class="button-wrapper" id="action-buttons">
+            <button
+              type="button"
+              class="add-to-watched-btn"
+              id="watched-button"
+              data-value="add"
+            >
+              ADD TO WATCHED
+            </button>
+
+            <button
+              type="button"
+              class="add-to-queue-btn"
+              id="queue-button"
+              data-value="add"
+            >
+              ADD TO QUEUE
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
