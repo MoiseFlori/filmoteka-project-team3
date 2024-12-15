@@ -37,7 +37,9 @@ export function generateMovieHTML(movie) {
       </div>
       <div class="movie-info">
         <h3 class="movie-title">${movie.title}</h3>
-        <p class="movie-date">${genres} | ${new Date(movie.release_date).getFullYear()}</p>
+        <p class="movie-date">${genres} | ${new Date(
+    movie.release_date
+  ).getFullYear()}</p>
         <div class="movie__average ${ratingClass}">
           ${movie.vote_average.toFixed(1)}
         </div>
@@ -45,7 +47,6 @@ export function generateMovieHTML(movie) {
     </li>
   `;
 }
-
 
 // Funcția pentru afișarea filmelor
 export async function renderMovies() {
