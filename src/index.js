@@ -1,9 +1,11 @@
 import './sass/index.scss';
+import * as basicLightbox from 'basiclightbox';
+import Notiflix from 'notiflix';
 
-import { renderMovies } from './js/components/movieList';
-import { fetchPopularMovies } from './js/api/moviesApi';
+
+import { renderMovies } from './js/components/movieList.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Aplicatia a fost initializata');
+  console.log('App initialized');
   renderMovies();
 });

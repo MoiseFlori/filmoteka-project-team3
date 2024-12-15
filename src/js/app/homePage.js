@@ -2,10 +2,9 @@
 // Realizează cereri către API-ul de filme pentru a obține o listă de filme populare.
 // Coordonează randarea listei de filme folosind componenta movieList.js.
 // Gestionează evenimentele legate de interacțiunile pe pagina principală, precum încărcarea suplimentară a filmelor sau inițializarea modalului pentru detaliile unui film.
+import { renderMovies } from './js/components/movieList.js';
 
-import { renderMovies } from '../components/movieList';
-
-// Afișează filmele când pagina este încărcată
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('App initialized');
   renderMovies();
 });
