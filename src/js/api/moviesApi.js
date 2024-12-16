@@ -46,6 +46,7 @@ export async function fetchPopularMovies() {
     return [];
   }
 }
+
 export async function fetchMovieDetails(movieId) {
   const MOVIE_DETAIL_URL = `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=en-US`;
 
@@ -63,3 +64,68 @@ export async function fetchMovieDetails(movieId) {
     throw error;
   }
 }
+
+
+
+export async function searchMovies(query, page) {
+  
+  const searchParams = new URLSearchParams({
+    api_key: API_KEY,
+    query: query,
+    page: page,
+    language: 'en-US',
+    include_adult: false,
+  });
+
+  const apiUrl  = `${BASE_URL}/search/movie?${searchParams}`;
+
+  try {
+    console.log(`searchMovies(${query},${page}) with URL: ${apiUrl}`);
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+
+    console.log(data);
+    if (data.success === false) {
+      console.error('The resource you requested could not be found.');
+      return false;
+    }
+
+  return data;  // returnez doar data pentru că voi prelucra mai târziu currentPage și totalPages
+    // return data.results;
+   
+  } catch (error) {
+    console.error('Error fetching movie by Id:', error);
+    return [];
+  }
+}
+// export async function fetchMovieById(id) 
+
+
+
+
+export async function fetchMovieById(id) {
+  const apiUrl  = `${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US&page=1`;
+
+  try {
+    console.log(`fetchMovieById(${id}) with URL: ${apiUrl}`);
+    const response = await fetch(apiUrl);
+    
+	if (!response.ok) {
+      throw new Error('Failed to fetch movie details');
+    }
+	
+	const data = await response.json();
+
+    if (data.success === false) {
+      console.error('The resource you requested could not be found.');
+      return false;
+    }
+
+    return data;
+   
+  } catch (error) {
+    console.error('Error fetching movie by Id:', error);
+    return [];
+  }
+}
+// export async function fetchMovieById(id) 

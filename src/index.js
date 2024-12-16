@@ -1,5 +1,7 @@
 import './sass/index.scss';
+import './sass/_pagination.scss';
 
+import './js/components/searchBar';
 
 
 import { renderMovies } from './js/components/movieList.js';

@@ -1,3 +1,10 @@
+/*
+$primary-text-color replaced by #000000
+$accent-color replaced by #B92F2C
+$secondary-bgc replaced by #F7F7F7
+
+*/
+
 button {
   cursor: pointer;
 }
@@ -6,6 +13,7 @@ button {
   justify-content: center;
   align-items: center;
   margin-top: 60px;
+  gap: 16px;
 }
 .page-btn {
   min-width: 40px;
@@ -30,13 +38,13 @@ button {
   &:hover,
   &:focus {
     color: #fff;
-    background-color: rgba($accent-color, 0.6);
+    background-color: rgba(#B92F2C, 0.6);
   }
 }
 
 .page-btn.active-page {
-  background-color: $accent-color;
-  color: $primary-text-color;
+  background-color: #B92F2C;
+  color: #000000;
 }
 .prev-btn,
 .next-btn {
@@ -50,7 +58,7 @@ button {
   border-radius: 5px;
   border: none;
 
-  background: $secondary-bgc;
+  background: #F7F7F7;
 }
 .icon {
   display: flex;
