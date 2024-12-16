@@ -1,204 +1,402 @@
-
 .modal-wrapper {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-    overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
-/* Vizibilitate când modalul este activ */
-.modal-wrapper.open {
-    display: flex;
+.backdrop {
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  cursor: pointer;
+  opacity: 0.7;
 }
 
-/* Modal Layout */
+.backdrop:hover {
+  opacity: 1;
+}
+
+.backdrop:before,
+.backdrop:after {
+  position: absolute;
+  left: 5px;
+  content: ' ';
+  height: 14px;
+  width: 2px;
+  background-color: #000;
+}
+
+.backdrop:before {
+  transform: rotate(45deg);
+}
+
+.backdrop:after {
+  transform: rotate(-45deg);
+}
+
+.open {
+  display: flex;
+}
+
 #movie-modal {
-    background-color: #fff;
-    margin: 0 auto;
-    padding: 40px 20px;
-    width: 100%;
-    max-width: 900px;
-    /* Max width of the modal */
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    align-items: flex-start;
-    /* Aliniere corectă */
+  background-color: #fff;
+  margin: 0 auto;
+  position: relative;
+  padding: 40px 12px;
+  width: 100%;
+  max-width: 806px;
+  border-radius: 3px;
+  height: max-content;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
-/* Poster Section */
-#poster-section {
-    width: 50%;
-    height: 300px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
+#modal-content {
+  display: flex;
+  align-items: start;
+  width: 100%;
 }
 
-#poster-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.img-posters {
+  position: relative;
+  width: 375px;
+  height: 478px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-right: 16px;
 }
 
-/* Trailer Button */
 .trailer-btn {
-    position: absolute;
-    font-size: 50px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #f2936d;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    transition: transform 250ms ease, color 250ms ease;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  border: none;
+  color: #f2936d;
+  cursor: pointer;
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.trailer-btn:hover {
-    color: #ff6b08;
-    transform: translate(-50%, -50%) scale(1.1);
+.img-posters:hover .trailer-btn,
+.img-posters:focus .trailer-btn {
+  color: #ff6b08;
+  transform: translate(-50%, -50%) scale(1.1);
 }
 
-/* Movie Details */
-#movie-details {
-    padding: 20px;
-    color: #000;
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    /* 50% din lățimea modalului */
+.trailer-icon {
+  width: 100px;
+  height: 100px;
+}
+
+#details-section {
+  display: flex;
+  flex-direction: column;
+  max-width: 50%;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
 }
 
 #movie-title {
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  line-height: 1.1;
+  text-transform: uppercase;
 }
 
-#movie-description {
-    margin-bottom: 20px;
+#movie-description .description-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #8c8c8c;
+  margin-bottom: 8px;
 }
 
-.description-item {
-    margin-bottom: 10px;
+#movie-description .description-item:last-child {
+  margin-bottom: 0;
 }
 
-.description-item span {
-    font-weight: bold;
+#movie-description .description-item div {
+  color: #000000;
+}
+#original-title {
+  text-transform: uppercase;
 }
 
-#movie-genre {
-    color: #ff6b08;
+.about-wrapper {
+  margin-top: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+}
+
+.about-wrapper span {
+  display: block;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 8px;
 }
 
 #movie-about {
-    margin-top: 20px;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
+  color: #000;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
 }
 
-/* Buttons Section */
 .button-wrapper {
-    display: flex;
-    justify-content: flex-start;
-    gap: 20px;
-    margin-top: 30px;
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-#watched-button,
-#queue-button {
-    padding: 14px 25px;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    border: 1px solid #ff6b08;
-    background-color: transparent;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+.add-to-watched-btn,
+.add-to-queue-btn {
+  display: inline-block;
+  width: 165px;
+  height: 42px;
+  border-radius: 100px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  text-align: center;
+  border: 1px solid #8c8c8c;
+  color: #ff6b01;
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-#watched-button {
-    color: #ff6b08;
+.add-to-watched-btn:hover,
+.add-to-watched-btn:focus {
+  background-color: #ff6b01;
+  color: #fff;
+  border-color: transparent;
 }
 
-#queue-button {
-    color: #333;
-    border-color: #333;
+.add-to-queue-btn:hover,
+.add-to-queue-btn:focus {
+  background-color: #ff6b01;
+  color: #fff;
+  border-color: transparent;
 }
 
-#watched-button:hover,
-#queue-button:hover {
-    background-color: #ff6b08;
-    color: #fff;
-}
-
-/* Backdrop */
-#modal-backdrop {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    opacity: 0;
-    transition: opacity 200ms ease-in-out;
-}
-
-/* Responsive Layout */
-@media screen and (max-width: 992px) {
-    #movie-modal {
-        flex-direction: column;
-        width: 90%;
-    }
-
-    #poster-section {
-        height: 250px;
-    }
-
-    #movie-title {
-        font-size: 28px;
-    }
-
-    .button-wrapper {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
+/* Stilizare pentru mobil */
 @media screen and (max-width: 767px) {
-    #movie-modal {
-        padding: 20px;
-        width: 100%;
-    }
+  #movie-modal {
+    width: 280px;
+    height: auto;
+    padding: 48px 20px 40px 20px;
+  }
 
-    #poster-section {
-        height: 200px;
-    }
+  #modal-content {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    #movie-details {
-        font-size: 14px;
-    }
+  .img-posters {
+    width: 100%;
+    width: 240px;
+    height: 357px;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
 
-    #film-img {
-        width: 100%;
-        height: 180px;
-    }
+  .trailer-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 60px;
+  }
 
-    .button-wrapper {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
+  #details-section {
+    max-width: 100%;
+    font-size: 14px;
+  }
+
+  #movie-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  #movie-description {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .about-wrapper {
+    margin-top: 10px;
+    font-size: 12px;
+    text-align: justify;
+  }
+
+  .about-wrapper span {
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+
+  #movie-about {
+    line-height: 20px;
+  }
+
+  .button-wrapper {
+    gap: 4px;
+    margin-top: 20px;
+  }
+
+  .add-to-watched-btn,
+  .add-to-queue-btn {
+    width: 125px;
+    height: 34px;
+    font-size: 12px;
+  }
+}
+
+/* Stilizare pentru mobil */
+@media screen and (max-width: 767px) {
+  #movie-modal {
+    width: 280px;
+    height: auto;
+    padding: 48px 20px 40px 20px;
+  }
+
+  #modal-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .img-posters {
+    width: 100%;
+    width: 240px;
+    height: 357px;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .trailer-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 60px;
+  }
+
+  #details-section {
+    max-width: 100%;
+    font-size: 14px;
+  }
+
+  #movie-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  #movie-description {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .about-wrapper {
+    margin-top: 10px;
+    font-size: 12px;
+    text-align: justify;
+  }
+
+  .about-wrapper span {
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+
+  #movie-about {
+    line-height: 20px;
+  }
+
+  .button-wrapper {
+    gap: 4px;
+    margin-top: 20px;
+  }
+
+  .add-to-watched-btn,
+  .add-to-queue-btn {
+    width: 125px;
+    height: 34px;
+    font-size: 12px;
+  }
+}
+
+/* Stilizare pentru Tablete */
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  #movie-modal {
+    width: 704px;
+    height: auto;
+    padding-left: 36px;
+    padding-top: 40px;
+    padding-right: 72px;
+    padding-bottom: 138.45px;
+  }
+
+  #modal-content {
+    flex-direction: row;
+    gap: 68px;
+  }
+
+  .img-posters {
+    width: 264px;
+    height: 374px;
+    flex-shrink: 0;
+    border-radius: 5px;
+  }
+
+  .trailer-btn {
+    width: 70px;
+    height: 70px;
+    font-size: 70px;
+  }
+
+  #movie-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  #movie-description .description-item {
+    gap: 8px;
+  }
+
+  .about-wrapper {
+    margin-top: 7.45px;
+    line-height: 20px;
+  }
+
+  .button-wrapper {
+    margin-top: 20px;
+    gap: 8px;
+  }
+
+  .add-to-watched-btn,
+  .add-to-queue-btn {
+    width: 137px;
+    height: 38px;
+  }
 }
