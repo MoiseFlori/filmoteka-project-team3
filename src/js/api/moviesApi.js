@@ -6,6 +6,7 @@
 // Funcția pentru obținerea filmelor populare
 import { BASE_URL, API_KEY } from './config.js';
 import { fetchGenres } from './genresApi.js';
+import { currentPage, defineResultsPerPage } from '../components/pagination';
 
 let genresCache = [];
 
@@ -17,12 +18,14 @@ async function getGenres() {
 }
 
 export async function fetchPopularMovies() {
-  const apiUrl = `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+  const apiUrl = `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`;
 
   try {
     console.log('Fetching popular movies...');
     const response = await fetch(apiUrl);
     const data = await response.json();
+
+    console.log(data);
 
     if (!data.results || data.results.length === 0) {
       console.error('No popular movies found:', data);
