@@ -1,0 +1,91 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Header Styling */
+  .header {
+    background-image: url("../images/background-1.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    position: relative;
+  }
+  
+  @media (max-width: 768px) {
+    .header {
+      background-image: url("../images/background-2.jpg");
+      height: 150px;
+    }
+  }
+  
+  .container {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  /* Top-left Buttons */
+  .header-buttons {
+    display: flex;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    align-items: center; /* Align icons horizontally */
+  }
+  
+  /* Movie Search Button - Ensure the two icons are aligned properly with the text */
+  .header-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .icon, .icon-search {
+    fill: white;
+    width: 24px;
+    height: 24px;
+  }
+  
+  .button-text {
+    margin-left: 10px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  /* Logo and Title in Bottom-left */
+  .logo-container {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-icon {
+    width: 48px;
+    height: 48px;
+    fill: white;
+    margin-right: 10px;
+  }
+  
+  .logo-text {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+  }
