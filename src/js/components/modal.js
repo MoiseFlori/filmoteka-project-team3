@@ -15,20 +15,20 @@ export async function initializeModal() {
   const trailerButton = document.getElementById('trailer-button');
 
   function renderMoviesModal(movies) {
-    movieList.innerHTML = '';
-    movies.forEach(movie => {
-      const movieCard = document.createElement('li');
-      movieCard.classList.add('movie_list_item');
-      movieCard.setAttribute('data-movie-id', movie.id);
-      movieCard.innerHTML = generateMovieHTML(movie);
+    // movieList.innerHTML = '';
+    // movies.forEach(movie => {
+    //   const movieCard = document.createElement('li');
+    //   movieCard.classList.add('movie_list_item');
+    //   movieCard.setAttribute('data-movie-id', movie.id);
+    //   movieCard.innerHTML = generateMovieHTML(movie);
 
-      movieCard.addEventListener('click', () => {
-        console.log('Clicked movie card:', movie.id);
-        handleMovieDetails(movie.id);
-      });
+    //   movieCard.addEventListener('click', () => {
+    //     console.log('Clicked movie card:', movie.id);
+    //     handleMovieDetails(movie.id);
+    //   });
 
-      movieList.appendChild(movieCard);
-    });
+    //   movieList.appendChild(movieCard);
+    // });
   }
 
   async function handleMovieDetails(movieId) {
