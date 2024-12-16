@@ -1,35 +1,38 @@
+@import './breakpoints';
+
 
 .pagination-container {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	align-items: center;
-	font-family: 'Roboto', sans-serif;
-	font-size: 12px;
-	font-weight: 500;
-	line-height: 16px;
-	text-align: left;
-	gap: 8px;
-	text-underline-position: from-font;
-	text-decoration-skip-ink: none;
-  
-	@media screen and (min-width: $tablet) {
-	  padding: 60px 0;
-	}
-  
-	@media screen and (min-width: $mobile) and (max-width: $tablet) {
-	  padding: 40px 0;
-	}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: left;
+  gap: 8px;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+
+  @media screen and (min-width: $tablet) {
+    padding: 60px 0;
   }
-  
-  .pagination-button:not(:last-child),
-  .dots {
-	margin-right: 16px;
+
+  @media screen and (min-width: $mobile) and (max-width: $tablet) {
+    padding: 40px 0;
   }
-  
-  .dots {
-	color: black;
-=======
+}
+
+.pagination-button:not(:last-child),
+.dots {
+  margin-right: 16px;
+}
+
+.dots {
+  color: black;
+}
+
 /*
 $primary-text-color replaced by #000000
 $accent-color replaced by #B92F2C
@@ -70,12 +73,12 @@ button {
   &:hover,
   &:focus {
     color: #fff;
-    background-color: rgba(#B92F2C, 0.6);
+    background-color: rgba(#b92f2c, 0.6);
   }
 }
 
 .page-btn.active-page {
-  background-color: #B92F2C;
+  background-color: #b92f2c;
   color: #000000;
 }
 .prev-btn,
@@ -90,7 +93,7 @@ button {
   border-radius: 5px;
   border: none;
 
-  background: #F7F7F7;
+  background: #f7f7f7;
 }
 .icon {
   display: flex;
@@ -113,54 +116,54 @@ button {
     text-transform: uppercase;
     text-align: center;
     color: #000;
+  }
 
-  }
-  
   .pagination-button {
-	padding: 0;
-	background-color: white;
-	border: none;
-	color: #000000;
-	cursor: pointer;
-	font-weight: 500;
-	font-size: 12px;
-	line-height: 1.333;
-	// width: 40px;
-	// height: 40px;
+    padding: 0;
+    background-color: white;
+    border: none;
+    color: #000000;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.333;
+    // width: 40px;
+    // height: 40px;
   }
-  
+
   .pagination--current {
-	width: 40px;
-	height: 40px;
-	border-radius: 5px;
-	background-color: #ff6b08;
-	color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #ff6b08;
+    color: white;
   }
-  
+
   .dots,
   .first-button,
   .last-button {
-	@media screen and (max-width: $mobile) {
-	  display: none;
-	}
+    @media screen and (max-width: $mobile) {
+      display: none;
+    }
   }
-  
+
   .arrow-left,
   .arrow-right {
-	width: 40px;
-	height: 40px;
-	border-radius: 5px;
-	background-color: #F7F7F7;
-	transform: matrix(-1, 0, 0, 1, 0, 0);
-	stroke: #000;
-	background-position: center;
-	background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+    stroke: #000;
+    background-position: center;
+    background-repeat: no-repeat;
   }
-  
+
   .arrow-left {
-	background-image: url(../images/arrow-right.svg);
+    background-image: url(../images/arrow-right.svg);
   }
-  
+
   .arrow-right {
-	background-image: url(../images/arrow-left.svg);
+    background-image: url(../images/arrow-left.svg);
   }
+}

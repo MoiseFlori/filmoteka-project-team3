@@ -32,21 +32,21 @@ ul.movies {
 
 /* Cardurile individuale ale filmelor */
 .movie_list_item {
-    position: relative;
-    width: 280px;
+  position: relative;
+  width: 280px;
+  font-size: 12px;
+  transition: scale 250ms;
+
+  @media screen and (min-width: $tablet) {
+    width: 336px;
     font-size: 12px;
-    transition: scale 250ms;
-  
-    @media screen and (min-width: $tablet) {
-      width: 336px;
-      font-size: 12px;
-    }
-  
-    @media screen and (min-width: $desktop) {
-      flex-basis: calc((100% - 32px) / 3);
-      font-size: 20px;
-    }
   }
+
+  @media screen and (min-width: $desktop) {
+    flex-basis: calc((100% - 32px) / 3);
+    font-size: 20px;
+  }
+}
 
 /* Efect hover pentru scalare */
 .movie_list_item:hover {
@@ -55,9 +55,9 @@ ul.movies {
 
 /* Containere pentru imaginea filmului */
 .movie__cover-inner {
-    position: relative;
-    // height: 360px;
-  }
+  position: relative;
+  // height: 360px;
+}
 
 .movie__cover {
   width: 100%;
@@ -67,8 +67,8 @@ ul.movies {
 
 /* Informații despre film */
 .movie-info {
-    padding: 10px 0px;
-  }
+  padding: 10px 0px;
+}
 
 .movie-title {
   color: black; /* Culoarea textului */
@@ -103,13 +103,13 @@ ul.movies {
 }
 
 .movie__average--orange {
-  border: 1px solid orange; /* Rating mediu */
-  color: orange;
+  border: 1px solid #ff6b08; /* Rating mediu */
+  color: #ff6b08;
 }
 
 .movie__average--red {
-  border: 1px solid red; /* Rating scăzut */
-  color: red;
+  border: 1px solid #b92f2c; /* Rating scăzut */
+  color: #b92f2c;
 }
 
 /* Efect de "întunecare" pentru imagine */
