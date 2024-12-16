@@ -18,13 +18,20 @@ export function generateMovieHTML(movie) {
     : `No poster available for ${movie.title}`;
 
   // Afișează maximum două genuri
+    
+  console.log('movie.genre_names');
+  console.log(movie.genre_names);
+
+  if (typeof movie.genre_names === 'undefined')
+    movie.genre_names = [];
+
   let displayedGenres = movie.genre_names.slice(0, 2);
   if (movie.genre_names.length > 2) {
     displayedGenres.push('Other');
   }
 
-  // Folosește displayedGenres în loc de movie.genre_names
-  const genres = displayedGenres.join(', ');
+// Folosește displayedGenres în loc de movie.genre_names
+const genres = displayedGenres.join(', ');
 
   return `
     <li class="movie_list_item">
