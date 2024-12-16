@@ -68,10 +68,7 @@ export async function fetchMovieDetails(movieId) {
   }
 }
 
-
-
 export async function searchMovies(query, page) {
-  
   const searchParams = new URLSearchParams({
     api_key: API_KEY,
     query: query,
@@ -80,7 +77,7 @@ export async function searchMovies(query, page) {
     include_adult: false,
   });
 
-  const apiUrl  = `${BASE_URL}/search/movie?${searchParams}`;
+  const apiUrl = `${BASE_URL}/search/movie?${searchParams}`;
 
   try {
     console.log(`searchMovies(${query},${page}) with URL: ${apiUrl}`);
@@ -93,31 +90,27 @@ export async function searchMovies(query, page) {
       return false;
     }
 
-  return data;  // returnez doar data pentru că voi prelucra mai târziu currentPage și totalPages
+    return data; // returnez doar data pentru că voi prelucra mai târziu currentPage și totalPages
     // return data.results;
-   
   } catch (error) {
     console.error('Error fetching movie by Id:', error);
     return [];
   }
 }
-// export async function fetchMovieById(id) 
-
-
-
+// export async function fetchMovieById(id)
 
 export async function fetchMovieById(id) {
-  const apiUrl  = `${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US&page=1`;
+  const apiUrl = `${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US&page=1`;
 
   try {
     console.log(`fetchMovieById(${id}) with URL: ${apiUrl}`);
     const response = await fetch(apiUrl);
-    
-	if (!response.ok) {
+
+    if (!response.ok) {
       throw new Error('Failed to fetch movie details');
     }
-	
-	const data = await response.json();
+
+    const data = await response.json();
 
     if (data.success === false) {
       console.error('The resource you requested could not be found.');
@@ -125,10 +118,25 @@ export async function fetchMovieById(id) {
     }
 
     return data;
-   
   } catch (error) {
     console.error('Error fetching movie by Id:', error);
     return [];
   }
 }
-// export async function fetchMovieById(id) 
+// export async function fetchMovieById(id)
+
+export async function fetchTrailerUrl(movieId) {
+  try {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}`
+    );
+    const data = await response.json();
+    const trailer = data.results.find(
+      video => video.type === 'Trailer' && video.site === 'YouTube'
+    );
+    return trailer ? `https://www.youtube.com/embed/${trailer.key}` : null;
+  } catch (error) {
+    console.error('Error fetching trailer URL:', error);
+    return null;
+  }
+}
