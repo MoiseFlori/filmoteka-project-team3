@@ -1,6 +1,7 @@
 // Generating and displaying the list of movies.
 
 import { fetchPopularMovies } from '../api/moviesApi'; // Importă funcția de API
+import { currentPage, defineResultsPerPage } from '../components/pagination';
 
 // Funcția pentru generarea HTML-ului fiecărui film
 export function generateMovieHTML(movie) {
@@ -51,6 +52,7 @@ export function generateMovieHTML(movie) {
 // Funcția pentru afișarea filmelor
 export async function renderMovies() {
   try {
+    console.log('page', currentPage);
     console.log('Apelare la funcția renderMovies...');
     const movies = await fetchPopularMovies();
     const galleryElement = document.querySelector('.movies');
@@ -61,7 +63,9 @@ export async function renderMovies() {
       return;
     }
 
-    const moviesHTML = movies.map(generateMovieHTML).join('');
+    const perPage = defineResultsPerPage();
+
+    const moviesHTML = movies.slice(0, perPage).map(generateMovieHTML).join('');
     console.log('HTML-ul generat pentru filme:', moviesHTML);
     galleryElement.innerHTML = moviesHTML;
   } catch (error) {
