@@ -19,7 +19,6 @@ export async function initializeModal() {
   const movieAbout = document.getElementById('movie-about');
   const trailerButton = document.getElementById('trailer-button');
 
-
   const openTrailerModal = initializeTrailerModal();
 
   function renderMoviesModal(movies) {
@@ -55,7 +54,6 @@ export async function initializeModal() {
 
     movieTitle.textContent = data.title || 'No Title';
 
-   
     let ratingClass = 'movie__average--red';
     if (data.vote_average >= 7) ratingClass = 'movie__average--green';
     else if (data.vote_average >= 5) ratingClass = 'movie__average--orange';
@@ -87,7 +85,7 @@ export async function initializeModal() {
     try {
       const trailerUrl = await fetchTrailerUrl(movieId);
       if (trailerUrl) {
-        openTrailerModal(trailerUrl); 
+        openTrailerModal(trailerUrl);
       } else {
         alert('Trailer not available.');
       }
@@ -109,6 +107,13 @@ export async function initializeModal() {
   backdrop.addEventListener('click', closeModal);
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && modalWrapper.classList.contains('open')) {
+      closeModal();
+    }
+  });
+  
+  modalWrapper.addEventListener('click', e => {
+    const modalContent = document.getElementById('movie-details');
+    if (!modalContent.contains(e.target)) {
       closeModal();
     }
   });
