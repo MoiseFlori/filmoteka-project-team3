@@ -5,87 +5,173 @@
     box-sizing: border-box;
   }
   
-  body {
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Header Styling */
-  .header {
-    background-image: url("../images/background-1.jpg");
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Header Styling */
+.header {
+  background-image: url("../images/background-1.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 460px;
+  margin: 20px;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px;
+  padding-bottom: 20px;
+}
+
+.header-btns-and-search-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.header-buttons, .library-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.library-buttons {
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 16px;
+}
+.header-btn, .library-btn {
+  height: 34px;
+  padding: 10px 22px;
+  border-radius: 100px;
+  border: none;
+  background-color: #fff;
+}
+
+.library-btn {
+  color: #B92F2C;
+}
+
+.header-btn:hover,
+.header-btn.header-btn-active {
+  color: #fff;
+  background-color: black;
+}
+
+
+.library-btn:hover,
+.library-btn.library-btn-active {
+  color: #fff;
+  background-color: #B92F2C;
+}
+
+.search-field-container {
+  height: 34px;
+  flex-basis: 100%;
+  border-radius: 100px;
+  display: flex;
+  background-color: #fff;
+  padding: 11px 16px;
+  justify-content: space-between;
+  position: relative;
+}
+
+.search-field {
+  height: 14px;
+  border: 0;
+  flex-grow: 1;
+}
+
+.search-field::placeholder {
+  color:black
+}
+
+
+.search-button {
+  background-color: transparent;  
+  border: none;
+}
+.search-icon {
+  position: absolute;
+  top:10px;
+  right:10px;
+  width: 14px;
+  height: 14px;
+}
+
+.logo-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: auto;
+
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  fill: white;
+}
+
+.logo-text {
+  color: white;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .header { 
+    background-image: url("../images/background-2.jpg");
     background-size: cover;
-    background-position: center;
-    height: 200px;
-    position: relative;
+    
+    flex-direction: row;
+    height: 222px;
+    padding: 16px;
+    align-items: flex-start;
   }
-  
-  @media (max-width: 768px) {
-    .header {
-      background-image: url("../images/background-2.jpg");
-      height: 150px;
-    }
-  }
-  
-  .container {
-    position: relative;
-    height: 100%;
+
+  .header-btns-and-search-container {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px;
+    flex-direction: row;
   }
-  
-  /* Top-left Buttons */
-  .header-buttons {
-    display: flex;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    align-items: center; /* Align icons horizontally */
+
+  .library-buttons {
+    margin-left:auto;
+    margin-right: 0;
+    margin-top: 0;
   }
-  
-  /* Movie Search Button - Ensure the two icons are aligned properly with the text */
-  .header-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-right: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-  
-  .icon, .icon-search {
-    fill: white;
-    width: 24px;
-    height: 24px;
-  }
-  
-  .button-text {
-    margin-left: 10px;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
-  /* Logo and Title in Bottom-left */
+
   .logo-container {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    display: flex;
-    align-items: center;
+    margin-left: 0;
   }
-  
   .logo-icon {
-    width: 48px;
-    height: 48px;
-    fill: white;
-    margin-right: 10px;
+    width: 40px;
+    height: 40px;
   }
-  
   .logo-text {
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 40px;
+    line-height: 47px;
   }
+
+  .header-btn {
+    height: 38px;
+  }
+
+  .search-field-container{
+    order: -1;
+    height: 38px;
+    flex-basis: 38px;
+  }
+
+  .search-field {
+    height: 16px;
+  }
+
+  .search-icon {
+    width: 16px;
+    height: 16px;
+  }
+}

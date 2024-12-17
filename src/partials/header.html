@@ -1,46 +1,47 @@
 <header class="header">
-    <div class="container">
-      
-      <form name="form" action="" method="post" >
-        <input type="text" name="search-field" value="romania" class="search-field" />
-        <input type="button" name="search-button" value="submit" class="search-button" />
-      </form>
-      
-      <!-- Top-left buttons -->
-      <div class="header-buttons">
-        <!-- Movie Search Button -->
-        <button id="movie-search-btn" class="header-btn">
-          <svg class="icon" width="24" height="24">
-            <use href="./images/icons.svg#icon-rectangle"></use>
-          </svg>
-          <svg class="icon-search" width="24" height="24">
-            <use href="./images/icons.svg#icon-search"></use>
-          </svg>
-          <span class="button-text">Movie search</span>
-        </button>
-        
 
-        <!-- Home Button -->
-        <button id="home-btn" class="header-btn">
-          <svg class="icon" width="24" height="24">
-            <use href="./images/icons.svg#icon-home"></use>
-          </svg>
-        </button>
+<div class="header-btns-and-search-container">
 
-        <!-- My Library Button -->
-        <button id="library-btn" class="header-btn">
-          <svg class="icon" width="24" height="24">
-            <use href="./images/icons.svg#icon-library"></use>
-          </svg>
-        </button>
-      </div>
+  <div class="header-buttons">
+    <!-- Home Button -->
+    <button id="home-btn" class="header-btn header-btn-active">HOME</button>
 
-      <!-- Logo and Title in Bottom-left -->
-      <div class="logo-container">
-        <svg class="logo-icon" width="48" height="48">
-          <use href="./images/icons.svg#icon-film"></use>
-        </svg>
-        <h1 class="logo-text">Filmoteka</h1>
-      </div>
-    </div>
-    </header>
+    <!-- My Library Button -->
+    <button id="library-btn" class="header-btn">LIBRARY</button>
+  </div>                           
+
+  <div class="search-field-container">
+    <input type="search" name="search-field" class="search-field" placeholder="Movie Search"/>
+    
+    <button id="search-button" class="search-button">
+      <svg id="search-icon" class="search-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.41667 11.0833C8.994 11.0833 11.0833 8.994 11.0833 6.41667C11.0833 3.83934 8.994 1.75 6.41667 1.75C3.83934 1.75 1.75 3.83934 1.75 6.41667C1.75 8.994 3.83934 11.0833 6.41667 11.0833Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12.2494 12.2499L9.71191 9.7124" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+</div>
+
+
+    <!-- Logo and Title in Bottom-left -->
+  <div class="logo-container">
+      <svg svg class="logo-icon" width="48" height="48">
+        <use href="./images/icons.svg#icon-film"></use>
+      </svg>
+      <h1 class="logo-text">Filmoteka</h1>
+  </div>
+
+
+  <div class="library-buttons">
+    <!-- Wathced Button -->
+    <button id="watched-btn" class="library-btn library-btn-active">WATCHED</button>
+
+    <!-- Queue Button -->
+    <button id="queue-btn" class="library-btn">QUEUE</button>
+  </div> 
+
+
+
+  </div>
+</header>

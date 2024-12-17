@@ -12,19 +12,14 @@ import { renderSearchedMovies } from '../app/searchPage';
 
 searchText.addEventListener('click', function (e) {
 
-e.preventDefault();
-
-const page = 1;
-renderSearchedMovies(searchText.value, page)
-
+    e.preventDefault();
+    const page = 1;
+    renderSearchedMovies(searchText.value, page)
 });
 
 
 searchButton.addEventListener('click', function (e) {
-
-e.preventDefault();
-
-const page = 1;
-renderSearchedMovies(searchText.value, page)
-
+    e.preventDefault();
+    const page = 1;
+    renderSearchedMovies(searchText.value, page)
 });
