@@ -23,21 +23,24 @@ export async function initializeModal() {
   const openTrailerModal = initializeTrailerModal();
 
   function renderMoviesModal(movies) {
-    movieList.innerHTML = '';
-    movies.forEach(movie => {
-      const movieCard = document.createElement('li');
-      movieCard.classList.add('movie_list_item');
-      movieCard.setAttribute('data-movie-id', movie.id);
-      movieCard.innerHTML = generateMovieHTML(movie);
+    movieList.innerHTML = ''; 
+    const moviesMarkup = movies
+      .map(movie => {
+        return generateMovieHTML(movie);
+      })
+      .join(''); 
 
-      movieCard.addEventListener('click', () => {
-        console.log('Clicked movie card:', movie.id);
-        handleMovieDetails(movie.id);
-      });
-
-      movieList.appendChild(movieCard);
-    });
+    movieList.innerHTML = moviesMarkup; 
   }
+
+  // adaugam listener pe parinte 
+  movieList.addEventListener('click', event => {
+    const movieCard = event.target.closest('.movie_list_item');
+    if (movieCard) {
+      const movieId = movieCard.getAttribute('data-movie-id');
+      handleMovieDetails(movieId); 
+    }
+  });
 
   async function handleMovieDetails(movieId) {
     try {
