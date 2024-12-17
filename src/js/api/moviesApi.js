@@ -21,11 +21,11 @@ export async function fetchPopularMovies() {
   const apiUrl = `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`;
 
   try {
-    console.log('Fetching popular movies...');
+    // console.log('Fetching popular movies...');
     const response = await fetch(apiUrl);
     const data = await response.json();
 
-    console.log(data);
+    // console.log(data);
 
     if (!data.results || data.results.length === 0) {
       console.error('No popular movies found:', data);
@@ -33,7 +33,7 @@ export async function fetchPopularMovies() {
     }
 
     const genres = await getGenres();
-    console.log('Genres retrieved:', genres);
+    // console.log('Genres retrieved:', genres);
 
     const moviesWithGenres = data.results.map(movie => ({
       ...movie,
@@ -42,7 +42,7 @@ export async function fetchPopularMovies() {
       ),
     }));
 
-    console.log('Movies with genres:', moviesWithGenres);
+    // console.log('Movies with genres:', moviesWithGenres);
     return moviesWithGenres;
   } catch (error) {
     console.error('Error fetching popular movies:', error);

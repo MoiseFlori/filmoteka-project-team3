@@ -9,7 +9,7 @@ import './js/components/pagination.js';
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('App initialized');
+  // console.log('App initialized');
   renderMovies();
   initializeModal();
 });
