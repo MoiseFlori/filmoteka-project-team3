@@ -5,6 +5,7 @@ import {
 } from '../api/moviesApi';
 import { generateMovieHTML } from '../components/movieList';
 import { initializeTrailerModal } from '../components/trailer';
+import { setupButtons } from '../components/buttons';
 
 export async function initializeModal() {
   const movieList = document.querySelector('.movies');
@@ -78,6 +79,7 @@ export async function initializeModal() {
     movieAbout.textContent = data.overview || 'No description available.';
 
     trailerButton.onclick = () => fetchTrailer(data.id);
+    setupButtons(data);
     openModal();
   }
 
@@ -110,7 +112,7 @@ export async function initializeModal() {
       closeModal();
     }
   });
-  
+
   modalWrapper.addEventListener('click', e => {
     const modalContent = document.getElementById('movie-details');
     if (!modalContent.contains(e.target)) {
