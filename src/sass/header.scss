@@ -123,15 +123,20 @@ body {
 }
 
 @media (min-width: 768px) {
-  
+
   .header { 
     background-image: url("../images/background-2.jpg");
     background-size: cover;
     
-    flex-direction: row;
+
     height: 222px;
     padding: 16px;
-    align-items: flex-start;
+
+    flex-wrap: wrap;
+  }
+
+  header > * {
+    flex-basis: 50%;
   }
 
   .header-btns-and-search-container {
