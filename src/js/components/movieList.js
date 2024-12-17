@@ -34,16 +34,16 @@ export function generateMovieHTML(movie) {
           src="${moviePoster}" 
           alt="${altText}" 
         />
-        <div class="movie__cover--darkened"></div>
       </div>
-      <div class="movie-info">
-        <h3 class="movie-title">${movie.title}</h3>
-        <p class="movie-date">${genres} | ${new Date(
-    movie.release_date
-  ).getFullYear()}</p>
-        <div class="movie__average ${ratingClass}">
-          ${movie.vote_average.toFixed(1)}
-        </div>
+      <div class="movie__cover--darkened"></div>
+        <div class="movie-info">
+          <h3 class="movie-title">${movie.title}</h3>
+          <p class="movie-date">${genres} | ${new Date(
+              movie.release_date
+            ).getFullYear()}</p>
+                  <div class="movie__average ${ratingClass}">
+                    ${movie.vote_average.toFixed(1)}
+          </div>
       </div>
     </li>
   `;
@@ -52,8 +52,8 @@ export function generateMovieHTML(movie) {
 // Funcția pentru afișarea filmelor
 export async function renderMovies() {
   try {
-    console.log('page', currentPage);
-    console.log('Apelare la funcția renderMovies...');
+    // console.log('page', currentPage);
+    // console.log('Apelare la funcția renderMovies...');
     const movies = await fetchPopularMovies();
     const galleryElement = document.querySelector('.movies');
 
@@ -66,7 +66,7 @@ export async function renderMovies() {
     const perPage = defineResultsPerPage();
 
     const moviesHTML = movies.slice(0, perPage).map(generateMovieHTML).join('');
-    console.log('HTML-ul generat pentru filme:', moviesHTML);
+    // console.log('HTML-ul generat pentru filme:', moviesHTML);
     galleryElement.innerHTML = moviesHTML;
   } catch (error) {
     console.error('Eroare la afișarea filmelor:', error);
