@@ -1,8 +1,9 @@
 // Generating and displaying the list of movies.
 
 import { fetchPopularMovies } from '../api/moviesApi'; // Importă funcția de API
+import { currentPage, defineResultsPerPage } from '../components/pagination';
 
-// Funcția pentru generarea HTML-ului fiecărui film
+
 export function generateMovieHTML(movie) {
   let ratingClass = 'movie__average--red';
   if (movie.vote_average >= 7) ratingClass = 'movie__average--green';
@@ -16,17 +17,17 @@ export function generateMovieHTML(movie) {
     ? `${movie.title} movie poster`
     : `No poster available for ${movie.title}`;
 
-  // Afișează maximum două genuri
+  if (typeof movie.genre_names === 'undefined') movie.genre_names = [];
+
   let displayedGenres = movie.genre_names.slice(0, 2);
   if (movie.genre_names.length > 2) {
     displayedGenres.push('Other');
   }
 
-  // Folosește displayedGenres în loc de movie.genre_names
   const genres = displayedGenres.join(', ');
 
   return `
-    <li class="movie_list_item">
+    <li class="movie_list_item" data-movie-id="${movie.id}">
       <div class="movie__cover-inner">
         <img 
           class="movie__cover" 
@@ -51,6 +52,7 @@ export function generateMovieHTML(movie) {
 // Funcția pentru afișarea filmelor
 export async function renderMovies() {
   try {
+    console.log('page', currentPage);
     console.log('Apelare la funcția renderMovies...');
     const movies = await fetchPopularMovies();
     const galleryElement = document.querySelector('.movies');
@@ -61,7 +63,9 @@ export async function renderMovies() {
       return;
     }
 
-    const moviesHTML = movies.map(generateMovieHTML).join('');
+    const perPage = defineResultsPerPage();
+
+    const moviesHTML = movies.slice(0, perPage).map(generateMovieHTML).join('');
     console.log('HTML-ul generat pentru filme:', moviesHTML);
     galleryElement.innerHTML = moviesHTML;
   } catch (error) {

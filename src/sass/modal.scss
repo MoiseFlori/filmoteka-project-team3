@@ -20,6 +20,7 @@
   right: 16px;
   cursor: pointer;
   opacity: 0.7;
+  transition: transform 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
 }
 
 .backdrop:hover {
@@ -34,6 +35,7 @@
   height: 14px;
   width: 2px;
   background-color: #000;
+  transition: background-color 0.3s ease;
 }
 
 .backdrop:before {
@@ -42,6 +44,16 @@
 
 .backdrop:after {
   transform: rotate(-45deg);
+}
+
+.backdrop:active {
+  background-color: #ff6b01;
+  transform: rotate(180deg);
+}
+
+.backdrop:active:before,
+.backdrop:active:after {
+  background-color: #fff;
 }
 
 .open {
@@ -55,16 +67,14 @@
   padding: 40px 12px;
   width: 100%;
   max-width: 806px;
+  height: 100%;
+  max-height: 558px;
   border-radius: 3px;
   height: max-content;
-  max-height: 90vh;
-  overflow-y: auto;
 }
-
 #modal-content {
   display: flex;
   align-items: start;
-  width: 100%;
 }
 
 .img-posters {
@@ -81,14 +91,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: transparent;
   border: none;
-  color: #f2936d;
   cursor: pointer;
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
     color 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -98,11 +107,6 @@
 .img-posters:focus .trailer-btn {
   color: #ff6b08;
   transform: translate(-50%, -50%) scale(1.1);
-}
-
-.trailer-icon {
-  width: 100px;
-  height: 100px;
 }
 
 #details-section {
@@ -205,83 +209,56 @@
   color: #fff;
   border-color: transparent;
 }
+#movie-modal .vote-average {
+  display: inline-block;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #fff;
+}
 
-/* Stilizare pentru mobil */
-@media screen and (max-width: 767px) {
-  #movie-modal {
-    width: 280px;
-    height: auto;
-    padding: 48px 20px 40px 20px;
-  }
+#movie-modal .movie__average--red {
+  background-color: #b92f2c;
+}
 
-  #modal-content {
-    flex-direction: column;
-    align-items: center;
-  }
+#movie-modal .movie__average--orange {
+  background-color: #ff6b08;
+}
 
-  .img-posters {
-    width: 100%;
-    width: 240px;
-    height: 357px;
-    margin-right: 0;
-    margin-bottom: 20px;
-  }
+#movie-modal .movie__average--green {
+  background-color: #4caf50;
+}
 
-  .trailer-btn {
-    width: 60px;
-    height: 60px;
-    font-size: 60px;
-  }
-
-  #details-section {
-    max-width: 100%;
-    font-size: 14px;
-  }
-
-  #movie-title {
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
-
-  #movie-description {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .about-wrapper {
-    margin-top: 10px;
-    font-size: 12px;
-    text-align: justify;
-  }
-
-  .about-wrapper span {
-    margin-bottom: 8px;
-    font-size: 12px;
-  }
-
-  #movie-about {
-    line-height: 20px;
-  }
-
-  .button-wrapper {
-    gap: 4px;
-    margin-top: 20px;
-  }
-
-  .add-to-watched-btn,
-  .add-to-queue-btn {
-    width: 125px;
-    height: 34px;
-    font-size: 12px;
-  }
+#movie-modal .vote-count {
+  display: inline-block;
+  background-color: #f7f7f7;
+  color: #000;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 12px;
 }
 
 /* Stilizare pentru mobil */
 @media screen and (max-width: 767px) {
+  body.modal-open {
+    overflow: hidden;
+  }
+
   #movie-modal {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 280px;
-    height: auto;
+    max-height: 100vh;
+    overflow-y: auto;
     padding: 48px 20px 40px 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    z-index: 1000;
   }
 
   #modal-content {
@@ -291,9 +268,8 @@
 
   .img-posters {
     width: 100%;
-    width: 240px;
+    max-width: 240px;
     height: 357px;
-    margin-right: 0;
     margin-bottom: 20px;
   }
 
@@ -334,32 +310,40 @@
   }
 
   .button-wrapper {
-    gap: 4px;
+    gap: 10px;
     margin-top: 20px;
+    flex-direction: column;
   }
 
   .add-to-watched-btn,
   .add-to-queue-btn {
-    width: 125px;
-    height: 34px;
+    width: 100%;
+    height: 38px;
     font-size: 12px;
   }
 }
 
 /* Stilizare pentru Tablete */
 @media screen and (min-width: 768px) and (max-width: 992px) {
+  .modal-wrapper {
+    overflow: hidden;
+  }
+  body.modal-open {
+    overflow: hidden;
+  }
+
   #movie-modal {
     width: 704px;
-    height: auto;
-    padding-left: 36px;
-    padding-top: 40px;
-    padding-right: 72px;
-    padding-bottom: 138.45px;
+    max-height: 90vh;
+    padding: 36px 72px 40px 36px;
+    border-radius: 5px;
+    overflow-y: auto;
+    background-color: #fff;
   }
 
   #modal-content {
     flex-direction: row;
-    gap: 68px;
+    gap: 20px;
   }
 
   .img-posters {
@@ -385,7 +369,7 @@
   }
 
   .about-wrapper {
-    margin-top: 7.45px;
+    margin-top: 10px;
     line-height: 20px;
   }
 

@@ -1,5 +1,11 @@
-import { fetchPopularMovies, fetchMovieDetails } from '../api/moviesApi';
+import {
+  fetchPopularMovies,
+  fetchMovieDetails,
+  fetchTrailerUrl,
+} from '../api/moviesApi';
 import { generateMovieHTML } from '../components/movieList';
+import { initializeTrailerModal } from '../components/trailer';
+import { setupButtons } from '../components/buttons';
 
 export async function initializeModal() {
   const movieList = document.querySelector('.movies');
@@ -14,22 +20,27 @@ export async function initializeModal() {
   const movieAbout = document.getElementById('movie-about');
   const trailerButton = document.getElementById('trailer-button');
 
+  const openTrailerModal = initializeTrailerModal();
+
   function renderMoviesModal(movies) {
     movieList.innerHTML = '';
-    movies.forEach(movie => {
-      const movieCard = document.createElement('li');
-      movieCard.classList.add('movie_list_item');
-      movieCard.setAttribute('data-movie-id', movie.id);
-      movieCard.innerHTML = generateMovieHTML(movie);
+    const moviesMarkup = movies
+      .map(movie => {
+        return generateMovieHTML(movie);
+      })
+      .join('');
 
-      movieCard.addEventListener('click', () => {
-        console.log('Clicked movie card:', movie.id);
-        handleMovieDetails(movie.id);
-      });
-
-      movieList.appendChild(movieCard);
-    });
+    movieList.innerHTML = moviesMarkup;
   }
+
+  // adaugam listener pe parinte
+  movieList.addEventListener('click', event => {
+    const movieCard = event.target.closest('.movie_list_item');
+    if (movieCard) {
+      const movieId = movieCard.getAttribute('data-movie-id');
+      handleMovieDetails(movieId);
+    }
+  });
 
   async function handleMovieDetails(movieId) {
     try {
@@ -44,10 +55,26 @@ export async function initializeModal() {
     posterSection.style.backgroundImage = `url('https://image.tmdb.org/t/p/w500/${
       data.poster_path || ''
     }')`;
+
     movieTitle.textContent = data.title || 'No Title';
-    movieVotes.textContent = `${data.vote_average?.toFixed(1) || 'N/A'} / ${
-      data.vote_count || 0
-    }`;
+
+    let ratingClass = 'movie__average--red';
+    if (data.vote_average >= 7) ratingClass = 'movie__average--green';
+    else if (data.vote_average >= 5) ratingClass = 'movie__average--orange';
+
+    const modalMovieVotes = document.querySelector('#modal-movie-votes');
+    if (modalMovieVotes) {
+      modalMovieVotes.innerHTML = `
+    <span class="vote-average ${ratingClass}">
+      ${data.vote_average?.toFixed(1) || 'N/A'}
+    </span>
+    <span class="vote-separator">/</span>
+    <span class="vote-count">
+      ${data.vote_count || 0}
+    </span>
+  `;
+    }
+
     moviePopularity.textContent = data.popularity?.toFixed(1) || 'N/A';
     originalTitle.textContent = data.original_title || 'N/A';
     movieGenre.textContent =
@@ -55,6 +82,7 @@ export async function initializeModal() {
     movieAbout.textContent = data.overview || 'No description available.';
 
     trailerButton.onclick = () => fetchTrailer(data.id);
+    setupButtons(data);
     openModal();
   }
 
@@ -62,7 +90,7 @@ export async function initializeModal() {
     try {
       const trailerUrl = await fetchTrailerUrl(movieId);
       if (trailerUrl) {
-        window.open(trailerUrl, '_blank');
+        openTrailerModal(trailerUrl);
       } else {
         alert('Trailer not available.');
       }
@@ -70,21 +98,37 @@ export async function initializeModal() {
       console.error('Error fetching trailer:', error);
     }
   }
-
   function openModal() {
+    document.body.classList.add('modal-open');
     modalWrapper.classList.add('open');
+
+    backdrop.addEventListener('click', closeModal);
+    document.addEventListener('keydown', handleKeydown);
+    modalWrapper.addEventListener('click', handleOutsideClick);
   }
 
   function closeModal() {
+    document.body.classList.remove('modal-open');
     modalWrapper.classList.remove('open');
+
+    // eliminam listeners la inchiderea modalului
+    backdrop.removeEventListener('click', closeModal);
+    document.removeEventListener('keydown', handleKeydown);
+    modalWrapper.removeEventListener('click', handleOutsideClick);
   }
 
-  backdrop.addEventListener('click', closeModal);
-  document.addEventListener('keydown', e => {
+  function handleKeydown(e) {
     if (e.key === 'Escape' && modalWrapper.classList.contains('open')) {
       closeModal();
     }
-  });
+  }
+
+  function handleOutsideClick(e) {
+    const modalContent = document.getElementById('movie-details');
+    if (!modalContent.contains(e.target)) {
+      closeModal();
+    }
+  }
 
   const movies = await fetchPopularMovies();
   renderMoviesModal(movies);
