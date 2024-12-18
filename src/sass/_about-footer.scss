@@ -1,11 +1,17 @@
 .backdrop-modal {
   position: fixed;
-  width: 100%;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 999;
+  overflow: hidden;
   background-color: #00000079;
+  backdrop-filter: blur(10px);
 }
 
 .modal-backdrop-hiden {
@@ -22,8 +28,8 @@
 
 .team-button-close {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 5px;
+  right: 1px;
   width: 35px;
   height: 35px;
   text-decoration: none;
@@ -31,52 +37,79 @@
   fill: rgb(64, 60, 60);
   background: none;
   padding: 4px;
-  transition-property: fill border-color;
   transition-duration: 250ms;
+  cursor: pointer;
+}
 
-  &:hover,
-  &:focus {
-    fill: #ff6b08;
-  }
+.team-icon-close:hover,
+:focus {
+  fill: #ff6b08;
 }
 
 .team-icon-close {
-    width: 35px;
-    height: 35px;
-    fill: #403c3c;
-    transition-property: fill border-color;
-    background: 0 0;
-    border: none;
-    padding: 4px;
-    text-decoration: none;
-    transition-duration: .25s;
-    position: absolute;
-    top: 20px;
-    right: 20px;
+  width: 35px;
+  height: 35px;
+  fill: #403c3c;
+  transition-property: fill border-color;
+  background: 0 0;
+  border: none;
+  padding: 4px;
+  text-decoration: none;
+  transition-duration: 0.25s;
+  position: absolute;
+  top: 10px;
+  right: 20px;
 }
 
+
 .team-modal {
-  border-radius: 10px;
+  
   position: absolute;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  top: 10%;
+  top: 3%;
   left: 50%;
   margin: 0;
   padding: 7px;
   background-color: #f7f7f7;
   transform: translateX(-50%);
   overflow-y: scroll;
-  max-width: 840px;
+  //
+  // width: 280px;
+  min-width: 280px;
   height: 100%;
-  max-height: auto;
-  border-radius: 3px;
-  height: max-content;
+  border-radius: 15px;
   padding-left: 20px;
+  max-height: 656px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8), inset 0 0 50px rgba(255, 255, 255, 0.2);
+  
+
+
+  @media screen and (min-width: 768px) {
+    border-radius: 10px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    top: 5%;
+    left: 50%;
+    margin: 0;
+    padding: 7px;
+    background-color: #f7f7f7;
+    transform: translateX(-50%);
+    overflow-y: scroll;
+    max-width: 840px;
+    height: 100%;
+    max-height: auto;
+    height: max-content;
+    padding-left: 20px;
+  }
+  
 }
 
 .team-title {
+  padding-bottom: 20px;
   padding-top: 13px;
   color: black;
   font-family: 'Roboto';
@@ -84,7 +117,7 @@
   font-weight: 500;
   font-size: 23px;
   line-height: 35px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-align: center;
   text-shadow: 1px 1px 1px #ccc, 1px -1px 1px #ccc, -1px 1px 1px #ccc,
     -1px -1px 1px #ccc;
@@ -96,7 +129,7 @@
 
   @media screen and (min-width: 768px) {
     padding-top: 15px;
-    margin-bottom: 30px;
+    // margin-bottom: 30px;
     font-size: 30px;
   }
 }
@@ -108,7 +141,7 @@
   z-index: -1;
   width: 100%;
   margin: auto;
-  border-bottom: 3px solid black;
+  // border-bottom: 3px solid black;
   bottom: 0.15em;
   transition: all 1s;
 }
@@ -122,18 +155,18 @@ H1:hover:after {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 278px;
-  gap: 40px;
+  // width: 278px;
+  gap: 7px;
 
   @media screen and (min-width: 768px) {
     width: 490px;
-    gap: 30px;
+    gap: 7px;
     margin-bottom: 35px;
   }
 
   @media screen and (min-width: 1280px) {
     width: 790px;
-    gap: 45px;
+    gap: 7px;
     margin-bottom: 35px;
   }
 }
@@ -143,28 +176,37 @@ H1:hover:after {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 230px;
+  width: 192px;
   transition: transform 450ms cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  animation: pulse 3s ease-in-out infinite;
+}
 
-  &:hover,
-  &:focus {
+.team__member:hover,
+.team__member:focus {
+  animation: none; /* Oprește animația */
+  transform: scale(1.3); /* Aplica efectul dorit */
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  10% {
     transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
   }
-
-  @media screen and (min-width: 768px) {
-    &:hover,
-    &:focus {
-      transform: scale(1.05);
-    }
+  20% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   }
-
-  @media screen and (min-width: 1280px) {
-    &:hover,
-    &:focus {
-      transform: scale(1.05);
-    }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   }
 }
+
 
 .team__photo {
   height: auto;
@@ -173,6 +215,7 @@ H1:hover:after {
   margin: auto;
   border-radius: 50px;
   box-shadow: 0px 0px 3px 5px #ccc;
+  
 }
 
 .team__name {
@@ -184,6 +227,7 @@ H1:hover:after {
   &:hover,
   &:focus {
     color: #ff6b08;
+    text-shadow: 0 0 8px rgba(255, 107, 8, 0.8);
   }
 
   @media screen and (min-width: 768px) {
@@ -229,28 +273,121 @@ H1:hover:after {
   &:focus {
     fill: #ff6b08;
     transition-duration: 0.5s;
+    transform: scale(1.1);
+  transition: transform 0.3s ease, fill 0.3s ease;
   }
 }
 
 .closeModalAnimationTeam {
-  animation: closingTeam 0.4s linear none;
+  animation: closingTeam 1.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
 }
 .openModalAnimationTeam {
-  animation: openingTeam 0.4s linear none;
+  animation: openingTeam 1.0s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
 }
+
 @keyframes openingTeam {
-  from {
-    transform: translateX(100%);
+  0% {
+    transform: perspective(800px) rotateY(90deg) scale(0.8);
+    opacity: 0;
   }
-  to {
-    transform: translateX(50%);
+  50% {
+    transform: perspective(800px) rotateY(-10deg) scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: perspective(800px) rotateY(0deg) scale(1);
+    opacity: 1;
   }
 }
+
 @keyframes closingTeam {
-  from {
-    transform: translateX(50%);
+  0% {
+    transform: perspective(800px) rotateY(0deg) scale(1);
+    opacity: 1;
   }
-  to {
-    transform: translateX(100%);
+  50% {
+    transform: perspective(800px) rotateY(-10deg) scale(0.9);
+    opacity: 0.5;
+  }
+  100% {
+    transform: perspective(800px) rotateY(90deg) scale(0.8);
+    opacity: 0;
   }
 }
+
+
+
+/* Scrollbar stilizat pentru un container specific */
+.kontainer {
+  overflow-y: auto; /* Activează scroll-ul */
+
+  scrollbar-width: thin; /* Pentru Firefox */
+  scrollbar-color: #ff5050 rgba(0, 0, 0, 0.1); /* Thumb și track pentru Firefox */
+}
+
+.kontainer:hover {
+  overflow-y: auto;
+}
+
+.kontainer::-webkit-scrollbar {
+  width: 10px;
+}
+
+.kontainer::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #ff5050, #ff8c50);
+  transition: background 0.3s ease;
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.kontainer::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #ff8c50, #ff5050);
+}
+
+.kontainer::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.kontainer::-webkit-scrollbar-track:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.openModalAnimationTeam {
+  animation: openingTeamBounce 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+@keyframes openingTeamBounce {
+  0% {
+    transform: scale(0.5) translateY(-200%);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05) translateY(10%);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+// @media (prefers-color-scheme: dark) {
+//   .backdrop-modal {
+//     background-color: rgba(0, 0, 0, 0.9);
+//   }
+
+//   .team-modal {
+//     background: rgba(20, 20, 20, 0.8);
+//     color: white;
+//   }
+
+//   .team__name {
+//     color: #ffb07b;
+//   }
+
+//   .team__role {
+//     color: #999;
+//   }
+// }
