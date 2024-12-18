@@ -3,6 +3,8 @@ import './sass/_pagination.scss';
 
 import './js/components/searchBar';
 
+import { showLoader } from  './js/components/loader.js';
+
 import { renderMovies } from './js/components/movieList.js';
 import { initializeModal } from './js/components/modal.js';
 import './js/components/pagination.js';
@@ -13,3 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeModal();
   toggleHeaderButtons();
 });
+
+
+document.addEventListener('click', () => {
+  showLoader();
+});
+
+

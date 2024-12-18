@@ -2,7 +2,7 @@
 
 console.log('*** Loaded searchbar.js');
 
-const searchText = document.querySelector('.search');
+const searchText = document.querySelector('.search.form-input');
 const searchButton = document.querySelector('.search-button');  
 const pagination = document.querySelector('.pagination');  
 
@@ -11,7 +11,7 @@ console.log(pagination);
 import { renderSearchedMovies } from '../app/searchPage';
 
 searchText.addEventListener('click', function (e) {
-
+    showLoader();
     e.preventDefault();
     const page = 1;
     renderSearchedMovies(searchText.value, page)
@@ -19,6 +19,7 @@ searchText.addEventListener('click', function (e) {
 
 
 searchButton.addEventListener('click', function (e) {
+    showLoader();
     e.preventDefault();
     const page = 1;
     renderSearchedMovies(searchText.value, page)
