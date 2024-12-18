@@ -1,7 +1,7 @@
-// Generating and displaying the list of movies.
-
-import { fetchPopularMovies } from '../api/moviesApi';
-import { defineResultsPerPage } from '../components/pagination';
+import { searchMovies, fetchPopularMovies } from '../api/moviesApi';
+import { updatePageButtons, currentPage } from './pagination';
+import { currentSearchQuery } from './searchBar';
+import { gallery } from './refs';
 
 export function generateMovieHTML(movie) {
   let ratingClass = 'movie__average--red';
@@ -23,13 +23,8 @@ export function generateMovieHTML(movie) {
   }
 
   const genres = genresArray.length > 0 ? displayedGenres.join(', ') : '';
-
-  const rating =
-    movie.vote_average !== undefined ? movie.vote_average.toFixed(1) : '';
-
-  const releaseYear = movie.release_date
-    ? new Date(movie.release_date).getFullYear()
-    : '';
+  const rating = movie.vote_average !== undefined ? movie.vote_average.toFixed(1) : '';
+  const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : '';
 
   return `
     <li class="movie_list_item" data-movie-id="${movie.id || ''}">
@@ -60,28 +55,77 @@ export function generateMovieHTML(movie) {
   `;
 }
 
-// Funcția pentru afișarea filmelor
-export async function renderMovies() {
-  try {
-    // console.log('page', currentPage);
-    // console.log('Apelare la funcția renderMovies...');
-    const movies = await fetchPopularMovies();
-    const galleryElement = document.querySelector('.movies');
+function getMoviesPerPage() {
+  const width = window.innerWidth;
+  if (width >= 1024) return 9;
+  if (width >= 768) return 8;
+  return 4;
+}
 
-    if (!movies || movies.length === 0) {
-      console.error('Niciun film pentru afișare.');
-      galleryElement.innerHTML = '<p>No movies found.</p>';
+export async function renderSearchedMovies(query, page) {
+  try {
+    const { results, total_pages } = await searchMovies(query, page);
+    
+    if (!results || results.length === 0) {
+      gallery.innerHTML = '<p>No movies found.</p>';
+      updatePageButtons(0); // Hide pagination when no results
       return;
     }
 
-    const perPage = defineResultsPerPage();
-
-    const moviesHTML = movies.slice(0, perPage).map(generateMovieHTML).join('');
-    // console.log('HTML-ul generat pentru filme:', moviesHTML);
-    galleryElement.innerHTML = moviesHTML;
+    const moviesPerPage = getMoviesPerPage();
+    const moviesToShow = results.slice(0, moviesPerPage);
+    const moviesHTML = moviesToShow.map(generateMovieHTML).join('');
+    gallery.innerHTML = moviesHTML;
+    
+    // Update pagination with the actual number of pages from search results
+    updatePageButtons(total_pages);
   } catch (error) {
-    console.error('Eroare la afișarea filmelor:', error);
-    document.querySelector('.movies').innerHTML =
-      '<p>Error loading movies.</p>';
+    console.error('Error displaying searched movies:', error);
+    gallery.innerHTML = '<p>Error loading movies.</p>';
+    updatePageButtons(0);
   }
 }
+
+export async function renderMovies(page = 1) {
+  console.log('Rendering movies for page:', page);
+  try {
+    const { results, total_pages } = await fetchPopularMovies(page);
+    
+    if (!results || results.length === 0) {
+      console.warn('No movies found');
+      gallery.innerHTML = '<p>No movies found.</p>';
+      updatePageButtons(0);
+      return;
+    }
+
+    console.log('Movies fetched:', results.length);
+    const moviesPerPage = getMoviesPerPage();
+    const moviesToShow = results.slice(0, moviesPerPage);
+    const moviesHTML = moviesToShow.map(generateMovieHTML).join('');
+    
+    if (gallery) {
+      gallery.innerHTML = moviesHTML;
+      updatePageButtons(total_pages);
+    } else {
+      console.error('Gallery element not found');
+    }
+  } catch (error) {
+    console.error('Error displaying movies:', error);
+    if (gallery) {
+      gallery.innerHTML = '<p>Error loading movies.</p>';
+    }
+    updatePageButtons(0);
+  }
+}
+
+// Add resize listener to handle responsive layout
+window.addEventListener('resize', () => {
+  if (gallery.children.length > 0) {
+    // Re-render current page when window is resized
+    if (currentSearchQuery) {
+      renderSearchedMovies(currentSearchQuery, currentPage);
+    } else {
+      renderMovies(currentPage);
+    }
+  }
+});
