@@ -139,3 +139,61 @@ const secret = {
 }
 
 export { currentPage, defineResultsPerPage, secret };
+
+function updatePageButtons() {
+  const totalPages = 20; // Numărul total de pagini
+  let startPage = currentPage - 2; // Calculează prima pagină vizibilă
+  let endPage = currentPage + 2;   // Calculează ultima pagină vizibilă
+
+  // Ajustează valorile dacă suntem aproape de început sau de sfârșit
+  if (startPage < 1) {
+    startPage = 1;
+    endPage = Math.min(5, totalPages); // Arată primele 5 pagini
+  }
+  if (endPage > totalPages) {
+    endPage = totalPages;
+    startPage = Math.max(totalPages - 4, 1); // Arată ultimele 5 pagini
+  }
+
+  // Actualizează textul butoanelor
+  const pageButtons = [btn1Ref, btn2Ref, btn3Ref, btn4Ref, btn5Ref];
+  pageButtons.forEach((btn, index) => {
+    const pageNumber = startPage + index;
+    btn.textContent = pageNumber;
+    btn.classList.toggle('pagination--current', pageNumber == currentPage);
+  });
+
+  // Afișează sau ascunde punctele și săgețile
+  firstPageRef.hidden = currentPage <= 3;
+  leftArrowRef.hidden = currentPage <= 1;
+  rightArrowRef.hidden = currentPage >= totalPages;
+  lastPageRef.hidden = currentPage >= totalPages - 2;
+  prevDotsRef.hidden = startPage <= 1;
+  afterDotsRef.hidden = endPage >= totalPages;
+}
+
+function onPaginationClick(event) {
+  const target = event.target;
+
+  if (target.tagName === 'BUTTON') {
+    // Elimină focusul de pe butonul curent
+    target.blur();
+    if (target.classList.contains('pagination-button') && target.dataset.index) {
+      currentPage = Number(target.textContent);
+    } else if (target.classList.contains('arrow-right') && currentPage < 20) {
+      currentPage += 1;
+    } else if (target.classList.contains('arrow-left') && currentPage > 1) {
+      currentPage -= 1;
+    } else if (target.classList.contains('first-button')) {
+      currentPage = 1;
+    } else if (target.classList.contains('last-button')) {
+      currentPage = 20;
+    }
+
+    updatePageButtons();
+
+    gallery.innerHTML = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    renderMovies();
+  }
+}
