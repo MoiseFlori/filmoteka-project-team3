@@ -2,7 +2,7 @@
 
 console.log('*** Loaded searchbar.js');
 
-const searchText = document.querySelector('.search-field');
+const searchText = document.querySelector('.search');
 const searchButton = document.querySelector('.search-button');  
 const pagination = document.querySelector('.pagination');  
 
