@@ -5,17 +5,8 @@
 
 // Funcția pentru obținerea filmelor populare
 import { BASE_URL, API_KEY } from './config.js';
-import { fetchGenres } from './genresApi.js';
-import { currentPage, defineResultsPerPage } from '../components/pagination';
-
-let genresCache = [];
-
-async function getGenres() {
-  if (genresCache.length === 0) {
-    genresCache = await fetchGenres();
-  }
-  return genresCache;
-}
+import { getGenres } from './genresApi.js';
+import { currentPage } from '../components/pagination';
 
 export async function fetchPopularMovies() {
   const apiUrl = `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`;
@@ -84,19 +75,18 @@ export async function searchMovies(query, page) {
     const response = await fetch(apiUrl);
     const data = await response.json();
 
-    console.log(data);
-    if (data.success === false) {
-      console.error('The resource you requested could not be found.');
-      return false;
+    if (!data || !data.results) {
+      console.warn('Invalid response or no results.');
+      return { results: [] }; // Returnăm un obiect gol
     }
 
-    return data; // returnez doar data pentru că voi prelucra mai târziu currentPage și totalPages
-    // return data.results;
+    return data; // Returnează datele corect
   } catch (error) {
-    console.error('Error fetching movie by Id:', error);
-    return [];
+    console.error('Error fetching movies:', error);
+    return { results: [] }; // Returnează un fallback
   }
 }
+
 // export async function fetchMovieById(id)
 
 export async function fetchMovieById(id) {
@@ -123,7 +113,6 @@ export async function fetchMovieById(id) {
     return [];
   }
 }
-// export async function fetchMovieById(id)
 
 export async function fetchTrailerUrl(movieId) {
   try {

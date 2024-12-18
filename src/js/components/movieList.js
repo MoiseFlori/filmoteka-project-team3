@@ -1,8 +1,7 @@
 // Generating and displaying the list of movies.
 
-import { fetchPopularMovies } from '../api/moviesApi'; // Importă funcția de API
-import { currentPage, defineResultsPerPage } from '../components/pagination';
-
+import { fetchPopularMovies } from '../api/moviesApi';
+import { defineResultsPerPage } from '../components/pagination';
 
 export function generateMovieHTML(movie) {
   let ratingClass = 'movie__average--red';
@@ -14,20 +13,26 @@ export function generateMovieHTML(movie) {
     : './images/no-image-available.jpg';
 
   const altText = movie.poster_path
-    ? `${movie.title} movie poster`
-    : `No poster available for ${movie.title}`;
+    ? `${movie.title || ''} movie poster`
+    : 'No poster available';
 
-  if (typeof movie.genre_names === 'undefined') movie.genre_names = [];
-
-  let displayedGenres = movie.genre_names.slice(0, 2);
-  if (movie.genre_names.length > 2) {
+  const genresArray = movie.genre_names || [];
+  let displayedGenres = genresArray.slice(0, 2);
+  if (genresArray.length > 2) {
     displayedGenres.push('Other');
   }
 
-  const genres = displayedGenres.join(', ');
+  const genres = genresArray.length > 0 ? displayedGenres.join(', ') : '';
+
+  const rating =
+    movie.vote_average !== undefined ? movie.vote_average.toFixed(1) : '';
+
+  const releaseYear = movie.release_date
+    ? new Date(movie.release_date).getFullYear()
+    : '';
 
   return `
-    <li class="movie_list_item" data-movie-id="${movie.id}">
+    <li class="movie_list_item" data-movie-id="${movie.id || ''}">
       <div class="movie__cover-inner">
         <img 
           class="movie__cover" 
@@ -36,14 +41,20 @@ export function generateMovieHTML(movie) {
         />
       </div>
       <div class="movie__cover--darkened"></div>
-        <div class="movie-info">
-          <h3 class="movie-title">${movie.title}</h3>
-          <p class="movie-date">${genres} | ${new Date(
-              movie.release_date
-            ).getFullYear()}</p>
-                  <div class="movie__average ${ratingClass}">
-                    ${movie.vote_average.toFixed(1)}
-          </div>
+      <div class="movie-info">
+        ${movie.title ? `<h3 class="movie-title">${movie.title}</h3>` : ''}
+        ${
+          genres || releaseYear
+            ? `<p class="movie-date">${[genres, releaseYear]
+                .filter(Boolean)
+                .join(' | ')}</p>`
+            : ''
+        }
+        ${
+          rating
+            ? `<div class="movie__average ${ratingClass}">${rating}</div>`
+            : ''
+        }
       </div>
     </li>
   `;

@@ -1,25 +1,26 @@
 // Logic for the search bar (including input events)
 
-console.log('*** Loaded searchbar.js');
-
 const searchText = document.querySelector('.search');
-const searchButton = document.querySelector('.search-button');  
-const pagination = document.querySelector('.pagination');  
-
-console.log(pagination);
+const searchButton = document.querySelector('.search-button');
 
 import { renderSearchedMovies } from '../app/searchPage';
 
-searchText.addEventListener('click', function (e) {
-
-    e.preventDefault();
-    const page = 1;
-    renderSearchedMovies(searchText.value, page)
+// Event listener pentru butonul de cautare
+searchButton.addEventListener('click', function (e) {
+  e.preventDefault();
+  const page = 1;
+  if (searchText.value.trim() === '') return; 
+  renderSearchedMovies(searchText.value.trim(), page);
+  searchText.value = '';
 });
 
-
-searchButton.addEventListener('click', function (e) {
+// Event listener pentru tasta Enter
+searchText.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') {
     e.preventDefault();
     const page = 1;
-    renderSearchedMovies(searchText.value, page)
+    if (searchText.value.trim() === '') return; 
+    renderSearchedMovies(searchText.value.trim(), page);
+    searchText.value = '';
+  }
 });

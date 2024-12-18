@@ -1,5 +1,5 @@
 const formRef = document.getElementById('search-form');
-const inputRef = document.querySelector('.search__input');
+const inputRef = document.querySelector('.form-input');
 const gallery = document.querySelector('.movies');
 const headerRef = document.querySelector('.header');
 const pageHomeRef = document.querySelector('.menu__link-home');

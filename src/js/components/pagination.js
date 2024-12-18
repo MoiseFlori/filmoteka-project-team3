@@ -1,9 +1,8 @@
 // Generating and managing pagination functionality.
 
-// import { startPage } from '../start-page';
 import { renderMovies } from './movieList';
-import { gallery, inputRef } from './refs';
-// import { movieSearcher } from '../search';
+import { gallery } from './refs';
+
 
 const btn1Ref = document.querySelector('[data-index="1"]');
 const btn2Ref = document.querySelector('[data-index="2"]');
