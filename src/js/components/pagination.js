@@ -1,9 +1,5 @@
-// Generating and managing pagination functionality.
-
-// import { startPage } from '../start-page';
-import { renderMovies } from './movieList';
-import { gallery, inputRef } from './refs';
-// import { movieSearcher } from '../search';
+import { renderMovies, renderSearchedMovies } from './movieList';
+import { currentSearchQuery } from './searchBar';
 
 const btn1Ref = document.querySelector('[data-index="1"]');
 const btn2Ref = document.querySelector('[data-index="2"]');
@@ -18,111 +14,89 @@ const leftArrowRef = document.querySelector('.arrow-left');
 const prevDotsRef = document.querySelector('#previous');
 const afterDotsRef = document.querySelector('#after');
 
+let currentPage = 1;
+let totalPages = 20;
+
+// Initialize pagination
 paginationRef.addEventListener('click', onPaginationClick);
 
-let currentPage = 1;
+function updatePageButtons(total) {
+  totalPages = Math.min(total || 20, 20);
+  
+  paginationRef.style.display = 'flex';
+  
+  const pageButtons = [btn1Ref, btn2Ref, btn3Ref, btn4Ref, btn5Ref];
+  pageButtons.forEach(btn => btn.hidden = true);
+  
+  // Show only the buttons needed
+  for (let i = 0; i < Math.min(totalPages, 5); i++) {
+    pageButtons[i].hidden = false;
+    pageButtons[i].textContent = i + 1;
+    pageButtons[i].classList.toggle('pagination--current', i + 1 === currentPage);
+  }
 
-let btns = document.querySelectorAll('.pagination-button');
+  lastPageRef.textContent = totalPages;
+  
+  // Hide first button and dots if we're at the start or have few pages
+  firstPageRef.hidden = currentPage <= 3 || totalPages <= 5;
+  prevDotsRef.hidden = currentPage <= 3 || totalPages <= 5;
+  
+  // Hide last button and dots if we're at the end or have few pages
+  lastPageRef.hidden = currentPage >= totalPages - 2 || totalPages <= 5;
+  afterDotsRef.hidden = currentPage >= totalPages - 2 || totalPages <= 5;
+  
+  // Show/hide arrows based only on current position
+  leftArrowRef.hidden = currentPage <= 1;
+  rightArrowRef.hidden = currentPage >= totalPages;
 
-prevDotsRef.hidden = true;
-leftArrowRef.hidden = true;
-firstPageRef.hidden = true;
-
-function onPaginationClick(event) {
-  if (event.target.tagName === 'BUTTON') {
-    if (Number(event.target.textContent)) {
-      currentPage = Number(event.target.textContent);
+  // Adjust button numbers for when we're near the end
+  if (currentPage > 3 && totalPages > 5) {
+    let startPage = currentPage - 2;
+    if (startPage + 4 > totalPages) {
+      startPage = totalPages - 4;
     }
-
-    prevDotsRef.hidden = true;
-    afterDotsRef.hidden = true;
-
-    if (event.target.classList.contains('pagination-button')) {
-      btns.forEach(el => el.classList.remove('pagination--current'));
-      event.target.classList.add('pagination--current');
-    }
-
-    if (event.target.classList.contains('arrow-right') && currentPage < 20) {
-      btns.forEach(el => el.classList.remove('pagination--current'));
-      btn1Ref.classList.add('pagination--current');
-      btn1Ref.textContent = Number(btn1Ref.textContent) + 5;
-      btn2Ref.textContent = Number(btn2Ref.textContent) + 5;
-      btn3Ref.textContent = Number(btn3Ref.textContent) + 5;
-      btn4Ref.textContent = Number(btn4Ref.textContent) + 5;
-      btn5Ref.textContent = Number(btn5Ref.textContent) + 5;
-      currentPage = btn1Ref.textContent;
-    }
-
-    if (event.target.classList.contains('arrow-left') && currentPage >= 5) {
-      btns.forEach(el => el.classList.remove('pagination--current'));
-      btn1Ref.textContent = Number(btn1Ref.textContent) - 5;
-      btn2Ref.textContent = Number(btn2Ref.textContent) - 5;
-      btn3Ref.textContent = Number(btn3Ref.textContent) - 5;
-      btn4Ref.textContent = Number(btn4Ref.textContent) - 5;
-      btn5Ref.textContent = Number(btn5Ref.textContent) - 5;
-      btn5Ref.classList.add('pagination--current');
-      currentPage = btn5Ref.textContent;
-    }
-
-    if (event.target.classList.contains('first-button')) {
-      btns.forEach(el => el.classList.remove('pagination--current'));
-      btn1Ref.textContent = 1;
-      btn2Ref.textContent = 2;
-      btn3Ref.textContent = 3;
-      btn4Ref.textContent = 4;
-      btn5Ref.textContent = 5;
-      btn1Ref.classList.add('pagination--current');
-      currentPage = btn1Ref.textContent;
-      leftArrowRef.hidden = true;
-      prevDotsRef.hidden = true;
-      firstPageRef.hidden = true;
-    }
-
-    if (event.target.classList.contains('last-button')) {
-      btns.forEach(el => el.classList.remove('pagination--current'));
-      btn1Ref.textContent = Number(lastPageRef.textContent) - 4;
-      btn2Ref.textContent = Number(lastPageRef.textContent) - 3;
-      btn3Ref.textContent = Number(lastPageRef.textContent) - 2;
-      btn4Ref.textContent = Number(lastPageRef.textContent) - 1;
-      btn5Ref.textContent = lastPageRef.textContent;
-      btn5Ref.classList.add('pagination--current');
-      currentPage = btn5Ref.textContent;
-      rightArrowRef.hidden = true;
-      afterDotsRef.hidden = true;
-      lastPageRef.hidden = true;
-    }
-
-    if (Number(currentPage) > 5) {
-      leftArrowRef.hidden = false;
-      prevDotsRef.hidden = false;
-      firstPageRef.hidden = false;
-    } else {
-      leftArrowRef.hidden = true;
-      prevDotsRef.hidden = true;
-      firstPageRef.hidden = true;
-    }
-
-    if (Number(currentPage) < 16) {
-      rightArrowRef.hidden = false;
-      afterDotsRef.hidden = false;
-      lastPageRef.hidden = false;
-    }
-
-    gallery.innerHTML = '';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // if (inputRef?.value !== '') {
-    //   movieSearcher(inputRef.value, currentPage);
-    // } else {
-    //   startPage();
-    // }
-    renderMovies();
+    pageButtons.forEach((btn, index) => {
+      if (!btn.hidden) {
+        btn.textContent = startPage + index;
+        btn.classList.toggle('pagination--current', startPage + index === currentPage);
+      }
+    });
   }
 }
 
-let pageSize = 9;
+async function onPaginationClick(event) {
+  const target = event.target;
+
+  if (target.tagName === 'BUTTON') {
+    target.blur();
+    const prevPage = currentPage;
+
+    if (target.classList.contains('pagination-button') && target.dataset.index) {
+      currentPage = Number(target.textContent);
+    } else if (target.classList.contains('arrow-right') && currentPage < totalPages) {
+      currentPage += 1;
+    } else if (target.classList.contains('arrow-left') && currentPage > 1) {
+      currentPage -= 1;
+    } else if (target.classList.contains('first-button')) {
+      currentPage = 1;
+    } else if (target.classList.contains('last-button')) {
+      currentPage = totalPages;
+    }
+
+    if (prevPage !== currentPage) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      if (currentSearchQuery) {
+        await renderSearchedMovies(currentSearchQuery, currentPage);
+      } else {
+        await renderMovies(currentPage);
+      }
+    }
+  }
+}
 
 function defineResultsPerPage() {
+  let pageSize = 9;
   if (window.innerWidth >= 1024) {
     pageSize = 9;
   } else if (window.innerWidth >= 768 && window.innerWidth < 1024) {
@@ -133,67 +107,10 @@ function defineResultsPerPage() {
   return pageSize;
 }
 
-const secret = {
-  r: 'goit',
-  e: 'go it',
-}
+window.addEventListener('resize', defineResultsPerPage);
 
-export { currentPage, defineResultsPerPage, secret };
-
-function updatePageButtons() {
-  const totalPages = 20; // Numărul total de pagini
-  let startPage = currentPage - 2; // Calculează prima pagină vizibilă
-  let endPage = currentPage + 2;   // Calculează ultima pagină vizibilă
-
-  // Ajustează valorile dacă suntem aproape de început sau de sfârșit
-  if (startPage < 1) {
-    startPage = 1;
-    endPage = Math.min(5, totalPages); // Arată primele 5 pagini
-  }
-  if (endPage > totalPages) {
-    endPage = totalPages;
-    startPage = Math.max(totalPages - 4, 1); // Arată ultimele 5 pagini
-  }
-
-  // Actualizează textul butoanelor
-  const pageButtons = [btn1Ref, btn2Ref, btn3Ref, btn4Ref, btn5Ref];
-  pageButtons.forEach((btn, index) => {
-    const pageNumber = startPage + index;
-    btn.textContent = pageNumber;
-    btn.classList.toggle('pagination--current', pageNumber == currentPage);
-  });
-
-  // Afișează sau ascunde punctele și săgețile
-  firstPageRef.hidden = currentPage <= 3;
-  leftArrowRef.hidden = currentPage <= 1;
-  rightArrowRef.hidden = currentPage >= totalPages;
-  lastPageRef.hidden = currentPage >= totalPages - 2;
-  prevDotsRef.hidden = startPage <= 1;
-  afterDotsRef.hidden = endPage >= totalPages;
-}
-
-function onPaginationClick(event) {
-  const target = event.target;
-
-  if (target.tagName === 'BUTTON') {
-    // Elimină focusul de pe butonul curent
-    target.blur();
-    if (target.classList.contains('pagination-button') && target.dataset.index) {
-      currentPage = Number(target.textContent);
-    } else if (target.classList.contains('arrow-right') && currentPage < 20) {
-      currentPage += 1;
-    } else if (target.classList.contains('arrow-left') && currentPage > 1) {
-      currentPage -= 1;
-    } else if (target.classList.contains('first-button')) {
-      currentPage = 1;
-    } else if (target.classList.contains('last-button')) {
-      currentPage = 20;
-    }
-
-    updatePageButtons();
-
-    gallery.innerHTML = '';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    renderMovies();
-  }
-}
+export { 
+  currentPage, 
+  defineResultsPerPage, 
+  updatePageButtons 
+};

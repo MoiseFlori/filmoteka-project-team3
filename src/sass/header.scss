@@ -129,6 +129,18 @@ body {
   stroke: black;
 }
 
+.search-error-message {
+  width: 155px;
+  height: 24px;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 11.72px;
+  text-align: left;
+  color: #ffffff;
+  margin-top: 8px;
+  margin-left: 14px;
+}
+
 .logo-container {
   display: flex;
   gap: 8px;
@@ -193,8 +205,7 @@ body {
     margin: 32px;
     border-radius: 15px;
     flex-direction: row;
-    padding: 16px;
-    padding-bottom: 32px;
+    padding: 16px 0 16px 16px;
   }
   @media screen and (-webkit-min-device-pixel-ratio: 2),
     (min-resolution: 192dpi) {
@@ -236,6 +247,12 @@ body {
     width: 16px;
     height: 16px;
   }
+  .search-error-message {
+    width: 135px;
+    height: 24px;
+    margin-left: 16px;
+  }
+
   .header-container {
     position: relative;
   }
@@ -268,6 +285,7 @@ body {
   .header-container {
     background-image: url('../images/background-header-desktop-1x.jpg');
     height: 316px;
+    padding: 16px 0 32px 32px;
   }
 
   @media screen and (-webkit-min-device-pixel-ratio: 2),
@@ -325,9 +343,7 @@ body {
   }
 }
 
-
 //My library
-
 
 .library-buttons-container {
   display: flex;

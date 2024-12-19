@@ -25,15 +25,11 @@ export async function initializeModal() {
   function renderMoviesModal(movies) {
     movieList.innerHTML = '';
     const moviesMarkup = movies
-      .map(movie => {
-        return generateMovieHTML(movie);
-      })
+      .map(movie => generateMovieHTML(movie))
       .join('');
-
     movieList.innerHTML = moviesMarkup;
   }
 
-  // adaugam listener pe parinte
   movieList.addEventListener('click', event => {
     const movieCard = event.target.closest('.movie_list_item');
     if (movieCard) {
@@ -111,7 +107,6 @@ export async function initializeModal() {
     document.body.classList.remove('modal-open');
     modalWrapper.classList.remove('open');
 
-    // eliminam listeners la inchiderea modalului
     backdrop.removeEventListener('click', closeModal);
     document.removeEventListener('keydown', handleKeydown);
     modalWrapper.removeEventListener('click', handleOutsideClick);
@@ -130,6 +125,11 @@ export async function initializeModal() {
     }
   }
 
-  const movies = await fetchPopularMovies();
-  renderMoviesModal(movies);
+  try {
+    const movies = await fetchPopularMovies();
+    const moviesArray = Array.isArray(movies) ? movies : movies.results || [];
+    renderMoviesModal(moviesArray);
+  } catch (error) {
+    console.error('Error fetching popular movies:', error);
+  }
 }
