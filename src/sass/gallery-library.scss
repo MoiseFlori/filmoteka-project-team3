@@ -1,0 +1,33 @@
+.update-message {
+  position: fixed;
+  top: 20px; 
+  left: 50%;
+  transform: translateX(-50%); 
+  background-color: #4caf50; 
+  color: #ffffff; 
+  padding: 10px 20px; 
+  border-radius: 5px; 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  font-size: 16px; 
+  font-weight: bold; 
+  z-index: 9999; 
+  animation: fadeInOut 2s ease-in-out; 
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px); 
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0); 
+  }
+  90% {
+    opacity: 1; 
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px); 
+  }
+}

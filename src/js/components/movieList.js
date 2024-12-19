@@ -2,6 +2,7 @@ import { searchMovies, fetchPopularMovies } from '../api/moviesApi';
 import { updatePageButtons, currentPage } from './pagination';
 import { currentSearchQuery } from './searchBar';
 import { gallery } from './refs';
+import { initializeModal } from '../components/modal';
 
 export function generateMovieHTML(movie) {
   let ratingClass = 'movie__average--red';
@@ -23,8 +24,11 @@ export function generateMovieHTML(movie) {
   }
 
   const genres = genresArray.length > 0 ? displayedGenres.join(', ') : '';
-  const rating = movie.vote_average !== undefined ? movie.vote_average.toFixed(1) : '';
-  const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : '';
+  const rating =
+    movie.vote_average !== undefined ? movie.vote_average.toFixed(1) : '';
+  const releaseYear = movie.release_date
+    ? new Date(movie.release_date).getFullYear()
+    : '';
 
   return `
     <li class="movie_list_item" data-movie-id="${movie.id || ''}">
@@ -65,7 +69,7 @@ function getMoviesPerPage() {
 export async function renderSearchedMovies(query, page) {
   try {
     const { results, total_pages } = await searchMovies(query, page);
-    
+
     if (!results || results.length === 0) {
       gallery.innerHTML = '<p>No movies found.</p>';
       updatePageButtons(0); // Hide pagination when no results
@@ -76,7 +80,7 @@ export async function renderSearchedMovies(query, page) {
     const moviesToShow = results.slice(0, moviesPerPage);
     const moviesHTML = moviesToShow.map(generateMovieHTML).join('');
     gallery.innerHTML = moviesHTML;
-    
+
     // Update pagination with the actual number of pages from search results
     updatePageButtons(total_pages);
   } catch (error) {
@@ -85,12 +89,11 @@ export async function renderSearchedMovies(query, page) {
     updatePageButtons(0);
   }
 }
-
 export async function renderMovies(page = 1) {
   console.log('Rendering movies for page:', page);
   try {
     const { results, total_pages } = await fetchPopularMovies(page);
-    
+
     if (!results || results.length === 0) {
       console.warn('No movies found');
       gallery.innerHTML = '<p>No movies found.</p>';
@@ -102,10 +105,24 @@ export async function renderMovies(page = 1) {
     const moviesPerPage = getMoviesPerPage();
     const moviesToShow = results.slice(0, moviesPerPage);
     const moviesHTML = moviesToShow.map(generateMovieHTML).join('');
-    
+
     if (gallery) {
       gallery.innerHTML = moviesHTML;
       updatePageButtons(total_pages);
+
+      
+      gallery.addEventListener('click', event => {
+        const movieItem = event.target.closest('.movie_list_item');
+        if (!movieItem) return;
+
+        const movieId = movieItem.dataset.movieId;
+        if (movieId) {
+          console.log('Clicked movie ID:', movieId);
+          initializeModal(movieId); 
+        } else {
+          console.error('Movie ID not found in clicked item');
+        }
+      });
     } else {
       console.error('Gallery element not found');
     }
