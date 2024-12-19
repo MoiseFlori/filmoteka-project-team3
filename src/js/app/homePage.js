@@ -3,8 +3,17 @@
 // Coordonează randarea listei de filme folosind componenta movieList.js.
 // Gestionează evenimentele legate de interacțiunile pe pagina principală, precum încărcarea suplimentară a filmelor sau inițializarea modalului pentru detaliile unui film.
 import { renderMovies } from './js/components/movieList.js';
+import { updatePageButtons } from '../components/pagination.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('App initialized');
-  renderMovies();
-});
+async function initializeApp() {
+  try {
+    console.log('App initializing...');
+    await renderMovies(1);
+    updatePageButtons(20); // Set initial pagination
+  } catch (error) {
+    console.error('Error initializing app:', error);
+  }
+}
+
+// Call initialization when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeApp);
