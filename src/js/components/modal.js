@@ -7,8 +7,7 @@ import { generateMovieHTML } from '../components/movieList';
 import { initializeTrailerModal } from '../components/trailer';
 import { setupButtons } from '../components/buttons';
 
-export async function initializeModal() {
-  const movieList = document.querySelector('.movies');
+export async function initializeModal(movieId) {
   const modalWrapper = document.querySelector('.modal-wrapper');
   const backdrop = document.querySelector('.backdrop');
   const posterSection = document.getElementById('poster-section');
@@ -22,29 +21,17 @@ export async function initializeModal() {
 
   const openTrailerModal = initializeTrailerModal();
 
-  function renderMoviesModal(movies) {
-    movieList.innerHTML = '';
-    const moviesMarkup = movies
-      .map(movie => generateMovieHTML(movie))
-      .join('');
-    movieList.innerHTML = moviesMarkup;
+  if (!movieId) {
+    console.error('No movie ID provided!');
+    return;
   }
 
-  movieList.addEventListener('click', event => {
-    const movieCard = event.target.closest('.movie_list_item');
-    if (movieCard) {
-      const movieId = movieCard.getAttribute('data-movie-id');
-      handleMovieDetails(movieId);
-    }
-  });
-
-  async function handleMovieDetails(movieId) {
-    try {
-      const movieDetails = await fetchMovieDetails(movieId);
-      populateModal(movieDetails);
-    } catch (error) {
-      console.error('Error fetching movie details:', error);
-    }
+  try {
+    const movieDetails = await fetchMovieDetails(movieId);
+    populateModal(movieDetails);
+    openModal();
+  } catch (error) {
+    console.error('Error fetching movie details:', error);
   }
 
   function populateModal(data) {
@@ -61,14 +48,14 @@ export async function initializeModal() {
     const modalMovieVotes = document.querySelector('#modal-movie-votes');
     if (modalMovieVotes) {
       modalMovieVotes.innerHTML = `
-    <span class="vote-average ${ratingClass}">
-      ${data.vote_average?.toFixed(1) || 'N/A'}
-    </span>
-    <span class="vote-separator">/</span>
-    <span class="vote-count">
-      ${data.vote_count || 0}
-    </span>
-  `;
+        <span class="vote-average ${ratingClass}">
+          ${data.vote_average?.toFixed(1) || 'N/A'}
+        </span>
+        <span class="vote-separator">/</span>
+        <span class="vote-count">
+          ${data.vote_count || 0}
+        </span>
+      `;
     }
 
     moviePopularity.textContent = data.popularity?.toFixed(1) || 'N/A';
@@ -79,7 +66,6 @@ export async function initializeModal() {
 
     trailerButton.onclick = () => fetchTrailer(data.id);
     setupButtons(data);
-    openModal();
   }
 
   async function fetchTrailer(movieId) {
@@ -94,6 +80,7 @@ export async function initializeModal() {
       console.error('Error fetching trailer:', error);
     }
   }
+
   function openModal() {
     document.body.classList.add('modal-open');
     modalWrapper.classList.add('open');
@@ -123,13 +110,5 @@ export async function initializeModal() {
     if (!modalContent.contains(e.target)) {
       closeModal();
     }
-  }
-
-  try {
-    const movies = await fetchPopularMovies();
-    const moviesArray = Array.isArray(movies) ? movies : movies.results || [];
-    renderMoviesModal(moviesArray);
-  } catch (error) {
-    console.error('Error fetching popular movies:', error);
   }
 }
