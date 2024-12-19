@@ -61,8 +61,8 @@ export function generateMovieHTML(movie) {
 
 function getMoviesPerPage() {
   const width = window.innerWidth;
-  if (width >= 1024) return 9;
-  if (width >= 768) return 8;
+  if (width >= 1024) return 18;
+  if (width >= 768) return 18;
   return 4;
 }
 
@@ -110,7 +110,6 @@ export async function renderMovies(page = 1) {
       gallery.innerHTML = moviesHTML;
       updatePageButtons(total_pages);
 
-      
       gallery.addEventListener('click', event => {
         const movieItem = event.target.closest('.movie_list_item');
         if (!movieItem) return;
@@ -118,7 +117,7 @@ export async function renderMovies(page = 1) {
         const movieId = movieItem.dataset.movieId;
         if (movieId) {
           console.log('Clicked movie ID:', movieId);
-          initializeModal(movieId); 
+          initializeModal(movieId);
         } else {
           console.error('Movie ID not found in clicked item');
         }

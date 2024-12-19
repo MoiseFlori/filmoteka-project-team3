@@ -96,13 +96,13 @@ async function onPaginationClick(event) {
 }
 
 function defineResultsPerPage() {
-  let pageSize = 9;
+  let pageSize = 20;
   if (window.innerWidth >= 1024) {
-    pageSize = 9;
+    pageSize = 20;
   } else if (window.innerWidth >= 768 && window.innerWidth < 1024) {
-    pageSize = 8;
+    pageSize = 20;
   } else if (window.innerWidth < 768) {
-    pageSize = 4;
+    pageSize = 20;
   }
   return pageSize;
 }

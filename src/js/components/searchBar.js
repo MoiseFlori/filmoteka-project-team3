@@ -10,7 +10,7 @@ async function handleSearch(event) {
   event.preventDefault();
   if (searchText.value.trim() === '') return;
 
-  showLoader(); 
+  // showLoader(); 
   currentSearchQuery = searchText.value.trim();
   await renderSearchedMovies(currentSearchQuery, 1); 
   searchText.value = ''; 
