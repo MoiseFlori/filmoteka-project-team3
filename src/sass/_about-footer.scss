@@ -185,7 +185,7 @@ H1:hover:after {
 .team__member:hover,
 .team__member:focus {
   animation: none; /* Oprește animația */
-  transform: scale(1.3); /* Aplica efectul dorit */
+  // transform: scale(1.3); /* Aplica efectul dorit */
 }
 
 @keyframes pulse {
