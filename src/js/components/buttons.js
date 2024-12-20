@@ -33,6 +33,7 @@ export function toggleHeaderButtons() {
 
     resetActiveButtons(); 
     homeBtn.classList.add('active'); 
+    showLoader();
   }
 
   function activateLibrary() {
@@ -50,6 +51,7 @@ export function toggleHeaderButtons() {
     queueButton.classList.remove('library-btn-active');
 
     initMyLibraryPage();
+    showLoader();
   }
 
   homeBtn.addEventListener('click', activateHome);
