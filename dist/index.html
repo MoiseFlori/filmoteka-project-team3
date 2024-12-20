@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filmoteka</title>
+    <link rel="stylesheet" href="/index.b07a87f3.css">
+    <link rel="icon" href="/browser-icon.11d55f9b.svg" type="image/x-icon">
+    <script src="/index.975ef6c8.js" defer=""></script>
+
+    <style>.loader {
+  visibility: hidden;
+  width: 64px;
+  height: 64px;
+  z-index: 999;
+  border-radius: 50%;
+  animation: rotate 1s linear infinite;
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50vh, -50vw);
+}
+
+.loader:before, .loader:after {
+  content: "";
+  box-sizing: border-box;
+  border: 8px solid #000;
+  border-radius: 50%;
+  animation: prixClipFix 2s linear infinite;
+  position: absolute;
+  inset: 0;
+}
+
+.loader:after {
+  border-color: #b92f2c;
+  animation: prixClipFix 3s linear infinite, rotate .5s linear infinite reverse;
+  inset: 8px;
+}
+
+.loader.show {
+  visibility: visible;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes prixClipFix {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+  }
+
+  25% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+  }
+
+  75% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+  }
+
+  100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+  }
+}
+
+</style>
+      
+  </head>
+  <body>
+
+    <!-- Loader / spinner -->
+    <span class="loader"></span>
+
+    <!-- ❗️❗️❗️ Add partials like so for every page -->
+    <header class="header">
+  <div class="header-container">
+    <!-- Header Buttons -->
+    <div class="header-buttons-container">
+      <button id="home-btn" class="header-btn">HOME</button>
+      <button id="library-btn" class="header-btn">MY LIBRARY</button>
+    </div>
+
+    <!-- Search Form -->
+    <form id="search-form" class="header-search-form">
+      <div class="search-form">
+        <input type="text" name="search" class="search form-input" placeholder="Movie search">
+        <button id="search-button" class="search-button">
+          <svg class="search-icon" width="14" height="14">
+            <use href="/icons.adfc4680.svg#icon-search"></use>
+          </svg>
+        </button>
+      </div>
+      <p id="search-error" class="search-error-message" style="display: none">
+        Search result not successful. Enter the correct movie name.
+      </p>
+    </form>
+
+    <!-- Logo -->
+    <div class="logo-container">
+      <svg class="logo-icon" width="48" height="48">
+        <use href="/icons.adfc4680.svg#icon-film"></use>
+      </svg>
+      <h1 class="logo-text">Filmoteka</h1>
+    </div>
+
+    <!-- Library Buttons -->
+    <div id="library-buttons" class="library-buttons-container" style="display: none">
+      <button id="watched-btn" class="library-btn library-btn-active">
+        WATCHED
+      </button>
+      <button id="queue-btn" class="library-btn">QUEUE</button>
+    </div>
+  </div>
+</header>
+
+    <!-- <include src="./partials/header-library.html"></include> -->
+    <main>
+      <section class="gallery">
+  <div class="container">
+    <div></div>
+    <ul class="movies"></ul>
+    <!-- pagination -->
+    <div class="pagination-container">
+      <button class="pagination-button arrow-left">
+      </button>
+      <button class="pagination-button first-button">1</button>
+      <button class="dots-btn"><span class="dots" id="previous">...</span></button>
+      <button class="pagination-button pagination--current" data-index="1">
+        1
+      </button>
+      <button class="pagination-button" data-index="2">2</button>
+      <button class="pagination-button" data-index="3">3</button>
+      <button class="pagination-button" data-index="4">4</button>
+      <button class="pagination-button" data-index="5">5</button>
+      <button class="dots-btn"><span class="dots" id="after">...</span></button>
+      <button class="pagination-button last-button">20</button>
+      <button class="pagination-button arrow-right">
+      </button>
+    </div>
+  </div>
+  
+</section>
+
+      <section id="library-gallery" class="gallery" style="display: none">
+  <div class="container">
+    <!-- Library List -->
+    <ul class="movies library-list"></ul>
+  </div>
+</section>
+
+      <div id="modal-container" class="modal-wrapper">
+  <div id="movie-modal">
+    <div id="modal-backdrop" class="backdrop"></div>
+    <div id="movie-details">
+      <div id="modal-content">
+        <div id="poster-section" class="img-posters">
+          <div id="poster-image" alt="Film Image">
+            <button class="trailer-btn" id="trailer-button" type="button">
+              <svg class="trailer-icon">
+                <use class="trailer-icon" href="/icons.adfc4680.svg#trailer-btn"></use>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div id="details-section">
+          <h2 id="movie-title"></h2>
+          <div id="movie-description">
+            <div class="description-item">
+              <span>Vote/Votes:</span>
+              <div id="modal-movie-votes" class="modal-votes"></div>
+            </div>
+            <div class="description-item">
+              <span>Popularity:</span>
+              <div id="movie-popularity"></div>
+            </div>
+            <div class="description-item">
+              <span>Original title:</span>
+              <div id="original-title"></div>
+            </div>
+            <div class="description-item">
+              <span>Genre:</span>
+              <div id="movie-genre"></div>
+            </div>
+          </div>
+          <div class="about-wrapper">
+            <span>About</span>
+            <div id="movie-about"></div>
+          </div>
+
+          <div class="button-wrapper" id="action-buttons">
+            <button type="button" class="add-to-watched-btn" id="watched-button" data-value="add">
+              ADD TO WATCHED
+            </button>
+
+            <button type="button" class="add-to-queue-btn" id="queue-button" data-value="add">
+              ADD TO QUEUE
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <div id="trailer-modal-container" class="trailer-modal-wrapper">
+  <div id="trailer-modal">
+    <div id="trailer-backdrop" class="trailer-backdrop"></div>
+    <div id="trailer-content" class="trailer-modal-content"></div>
+  </div>
+</div>
+
+    </main>
+    <!-- Footer -->
+      <footer class="footer">
+  <div class="footer-container">
+    <p class="footer-text">&#169; 2023 | All Rights Reserved |</p>
+    <div class="footer-credits">
+      Developed with
+      <img class="heart-icon" src="/footer-heart-icon.c81b6a90.png" alt="heart-icon" width="14" height="14">
+      <p class="credits-text footer-link">by GoIT Students</p>
+    </div>
+  </div>
+</footer>
+
+
+      <div class="backdrop-modal modal-backdrop-hiden">
+  <div class="team-modal kontainer">
+    <button class="team-button-close close-team-modal">
+        <svg class="team-icon team-icon-close">
+            <use href="/icons.adfc4680.svg#icon-close"></use>
+        </svg> 
+    </button>
+    <h1 class="team-title">Echipa nr 3</h1>
+    <div class="team-container">
+        <div class="team__member">
+            <div class="team__card">
+             <img class="team__photo" src="/flori-moise.6e63b756.jpg" alt="Anonim">
+            </div>
+           <a class="team__link" href="https://github.com/MoiseFlori" target="_blank">
+           <svg class="team__github" width="25" height="25">
+            <use href="/icons.adfc4680.svg#icon-github"></use>
+           </svg>
+           </a>
+           <p class="team__name">Flori Moise</p>
+           <p class="team__role">Team Lead</p>
+         </div>
+         <div class="team__member">
+            <div class="team__card">
+             <img class="team__photo" src="/avatars-000425326518-6qekg1-t240x240.f4e7a1f0.jpg" alt="Anonim">
+            </div>
+           <a class="team__link" href="https://github.com/" target="_blank">
+           <svg class="team__github" width="25" height="25">
+            <use href="/icons.adfc4680.svg#icon-github"></use>
+           </svg>
+           </a>
+           <p class="team__name">Grațiela Chirtop</p>
+           <p class="team__role">Scrum Master</p>
+         </div>
+         <div class="team__member">
+            <div class="team__card">
+             <img class="team__photo" src="/victoria-daguta.babf6165.jpg" alt="Anonim">
+            </div>
+           <a class="team__link" href="https://github.com/" target="_blank">
+           <svg class="team__github" width="25" height="25">
+            <use href="/icons.adfc4680.svg#icon-github"></use>
+           </svg>
+           </a>
+           <p class="team__name">Victoria Daguța</p>
+           <p class="team__role">Developer</p>
+         </div>
+         <div class="team__member">
+            <div class="team__card">
+             <img class="team__photo" src="/avatars-000425326518-6qekg1-t240x240.f4e7a1f0.jpg" alt="Anonim">
+            </div>
+           <a class="team__link" href="https://github.com/" target="_blank">
+           <svg class="team__github" width="25" height="25">
+            <use href="/icons.adfc4680.svg#icon-github"></use>
+           </svg>
+           </a>
+           <p class="team__name">Adeline Cozma</p>
+           <p class="team__role">Developer</p>
+         </div>
+         <div class="team__member">
+            <div class="team__card">
+             <img class="team__photo" src="/avatars-000425326518-6qekg1-t240x240.f4e7a1f0.jpg" alt="Anonim">
+            </div>
+           <a class="team__link" href="https://github.com/" target="_blank">
+           <svg class="team__github" width="25" height="25">
+            <use href="/icons.adfc4680.svg#icon-github"></use>
+           </svg>
+           </a>
+           <p class="team__name">Claudiu Tănase</p>
+           <p class="team__role">Developer</p>
+         </div>
+         <div class="team__member">
+            <div class="team__card">
+             <img class="team__photo" src="/avatars-000425326518-6qekg1-t240x240.f4e7a1f0.jpg" alt="Anonim">
+            </div>
+           <a class="team__link" href="https://github.com/" target="_blank">
+           <svg class="team__github" width="25" height="25">
+            <use href="/icons.adfc4680.svg#icon-github"></use>
+           </svg>
+           </a>
+           <p class="team__name">Florin Palamariu</p>
+           <p class="team__role">Developer</p>
+         </div>
+         <div class="team__member">
+            <div class="team__card">
+             <img class="team__photo" src="/abiatar-cosma.201c6d70.jpg" alt="Anonim">
+            </div>
+           <a class="team__link" href="https://github.com/" target="_blank">
+           <svg class="https://github.com/Abiatar-Cosma" width="25" height="25">
+            <use href="/icons.adfc4680.svg#icon-github"></use>
+           </svg>
+           </a>
+           <p class="team__name">Abiatar Cosma</p>
+           <p class="team__role">Developer</p>
+         </div>
+    </div>
+  </div>
+</div>
+
+      <script src="/index.4ebfaa56.js" defer=""></script>
+
+    <div id="modal-container" class="modal-wrapper">
+  <div id="movie-modal">
+    <div id="modal-backdrop" class="backdrop"></div>
+    <div id="movie-details">
+      <div id="modal-content">
+        <div id="poster-section" class="img-posters">
+          <div id="poster-image" alt="Film Image">
+            <button class="trailer-btn" id="trailer-button" type="button">
+              <svg class="trailer-icon">
+                <use class="trailer-icon" href="/icons.adfc4680.svg#trailer-btn"></use>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div id="details-section">
+          <h2 id="movie-title"></h2>
+          <div id="movie-description">
+            <div class="description-item">
+              <span>Vote/Votes:</span>
+              <div id="modal-movie-votes" class="modal-votes"></div>
+            </div>
+            <div class="description-item">
+              <span>Popularity:</span>
+              <div id="movie-popularity"></div>
+            </div>
+            <div class="description-item">
+              <span>Original title:</span>
+              <div id="original-title"></div>
+            </div>
+            <div class="description-item">
+              <span>Genre:</span>
+              <div id="movie-genre"></div>
+            </div>
+          </div>
+          <div class="about-wrapper">
+            <span>About</span>
+            <div id="movie-about"></div>
+          </div>
+
+          <div class="button-wrapper" id="action-buttons">
+            <button type="button" class="add-to-watched-btn" id="watched-button" data-value="add">
+              ADD TO WATCHED
+            </button>
+
+            <button type="button" class="add-to-queue-btn" id="queue-button" data-value="add">
+              ADD TO QUEUE
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    
+  </body>
+</html>
