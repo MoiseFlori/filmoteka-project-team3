@@ -22,11 +22,10 @@ let totalPages = 20;
 paginationRef.addEventListener('click', onPaginationClick);
 
 function updatePageButtons(total) {
-  totalPages = total || 1;
+  totalPages = Math.max(total || 1, 1);
   
     
-  paginationRef.style.display = totalPages <= 1 ? 'none' : 'flex';
-  
+  paginationRef.style.display = 'flex';  
   const pageButtons = [btn1Ref, btn2Ref, btn3Ref, btn4Ref, btn5Ref];
   pageButtons.forEach(btn => btn.hidden = true);
   
