@@ -31,6 +31,7 @@ export function toggleHeaderButtons() {
     mainGallery.style.display = 'block';
     libraryGallery.style.display = 'none';
 
+
     resetActiveButtons();
     homeBtn.classList.add('active');
 
@@ -38,6 +39,11 @@ export function toggleHeaderButtons() {
     if (themeSwitcher) {
       themeSwitcher.style.display = 'block';
     }
+
+    resetActiveButtons(); 
+    homeBtn.classList.add('active'); 
+    showLoader();
+
   }
 
   function activateLibrary() {
@@ -60,6 +66,9 @@ export function toggleHeaderButtons() {
     if (themeSwitcher) {
       themeSwitcher.style.display = 'none';
     }
+
+    showLoader();
+
   }
 
   homeBtn.addEventListener('click', activateHome);

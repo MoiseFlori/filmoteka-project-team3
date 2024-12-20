@@ -1,0 +1,45 @@
+.loader {
+    visibility: hidden;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    position: relative;
+    animation: rotate 1s linear infinite;
+    
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50vh, -50vw);
+    z-index: 999;
+  }
+  .loader::before , .loader::after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0px;
+    border-radius: 50%;
+    border: 8px solid #000;
+    animation: prixClipFix 2s linear infinite ;
+  }
+  .loader::after{
+    border-color: #B92F2C;
+    animation: prixClipFix 3s linear infinite , rotate 0.5s linear infinite reverse;
+    inset: 8px;
+  }
+
+  .loader.show {
+    visibility: visible;
+  }
+
+  @keyframes rotate {
+    0%   {transform: rotate(0deg)}
+    100%   {transform: rotate(360deg)}
+  }
+
+  @keyframes prixClipFix {
+      0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+      25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+      50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+      75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+      100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+  }
