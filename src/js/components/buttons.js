@@ -1,7 +1,7 @@
 // Managing the "Add to Watch" and "Add to Queue" buttons
 import { toggleStorage, isInStorage } from '../app/localStorage';
 import initMyLibraryPage from '../app/myLibraryPage';
-import { showLoader } from  './loader.js';
+import { showLoader } from './loader.js';
 
 const libraryBtn = document.getElementById('library-btn');
 const homeBtn = document.getElementById('home-btn');
@@ -11,8 +11,9 @@ const watchedButton = document.getElementById('watched-button');
 const queueButton = document.getElementById('queue-button');
 const mainGallery = document.querySelector('.gallery');
 const libraryGallery = document.querySelector('#library-gallery');
+const themeSwitcher = document.querySelector('.theme-switcher');
 
-let currentPage = 'home'; 
+let currentPage = 'home';
 
 function isOnLibraryPage() {
   return currentPage === 'library';
@@ -22,40 +23,49 @@ export function toggleHeaderButtons() {
     homeBtn.classList.remove('active');
     libraryBtn.classList.remove('active');
   }
-
   function activateHome() {
-    currentPage = 'home'; 
+    currentPage = 'home';
     searchForm.style.display = 'block';
     libraryButtons.style.display = 'none';
 
     mainGallery.style.display = 'block';
     libraryGallery.style.display = 'none';
 
-    resetActiveButtons(); 
-    homeBtn.classList.add('active'); 
+    resetActiveButtons();
+    homeBtn.classList.add('active');
+
+
+    if (themeSwitcher) {
+      themeSwitcher.style.display = 'block';
+    }
   }
 
   function activateLibrary() {
-    currentPage = 'library'; 
+    currentPage = 'library';
     searchForm.style.display = 'none';
     libraryButtons.style.display = 'flex';
 
     mainGallery.style.display = 'none';
     libraryGallery.style.display = 'block';
 
-    resetActiveButtons(); 
-    libraryBtn.classList.add('active'); 
+    resetActiveButtons();
+    libraryBtn.classList.add('active');
 
     watchedButton.classList.add('library-btn-active');
     queueButton.classList.remove('library-btn-active');
 
     initMyLibraryPage();
+
+
+    if (themeSwitcher) {
+      themeSwitcher.style.display = 'none';
+    }
   }
 
   homeBtn.addEventListener('click', activateHome);
   libraryBtn.addEventListener('click', activateLibrary);
 
-  activateHome(); 
+  activateHome();
 }
 
 export function setupButtons(movie) {
