@@ -18,8 +18,4 @@ async function initializeApp() {
 // Call initialization when DOM is loaded
 document.addEventListener('DOMContentLoaded', initializeApp);
 
-const logoContainer = document.querySelector('.logo-container');
 
-logoContainer.addEventListener('click', () => {
-  activateHome(); // Activează secțiunea Home
-});

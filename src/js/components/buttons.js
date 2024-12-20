@@ -1,6 +1,7 @@
 // Managing the "Add to Watch" and "Add to Queue" buttons
 import { toggleStorage, isInStorage } from '../app/localStorage';
 import initMyLibraryPage from '../app/myLibraryPage';
+import { showLoader } from  './loader.js';
 
 const libraryBtn = document.getElementById('library-btn');
 const homeBtn = document.getElementById('home-btn');
@@ -10,6 +11,54 @@ const watchedButton = document.getElementById('watched-button');
 const queueButton = document.getElementById('queue-button');
 const mainGallery = document.querySelector('.gallery');
 const libraryGallery = document.querySelector('#library-gallery');
+
+let currentPage = 'home'; 
+
+function isOnLibraryPage() {
+  return currentPage === 'library';
+}
+export function toggleHeaderButtons() {
+  function resetActiveButtons() {
+    homeBtn.classList.remove('active');
+    libraryBtn.classList.remove('active');
+  }
+
+  function activateHome() {
+    currentPage = 'home'; 
+    searchForm.style.display = 'block';
+    libraryButtons.style.display = 'none';
+
+    mainGallery.style.display = 'block';
+    libraryGallery.style.display = 'none';
+
+    resetActiveButtons(); 
+    homeBtn.classList.add('active'); 
+    showLoader();
+  }
+
+  function activateLibrary() {
+    currentPage = 'library'; 
+    searchForm.style.display = 'none';
+    libraryButtons.style.display = 'flex';
+
+    mainGallery.style.display = 'none';
+    libraryGallery.style.display = 'block';
+
+    resetActiveButtons(); 
+    libraryBtn.classList.add('active'); 
+
+    watchedButton.classList.add('library-btn-active');
+    queueButton.classList.remove('library-btn-active');
+
+    initMyLibraryPage();
+    showLoader();
+  }
+
+  homeBtn.addEventListener('click', activateHome);
+  libraryBtn.addEventListener('click', activateLibrary);
+
+  activateHome(); 
+}
 
 export function setupButtons(movie) {
   watchedButton.textContent = isInStorage('watched', movie.id)
@@ -26,7 +75,7 @@ export function setupButtons(movie) {
       ? 'REMOVE FROM WATCHED'
       : 'ADD TO WATCHED';
 
-    if (document.querySelector('#library-gallery').style.display === 'block') {
+    if (isOnLibraryPage()) {
       initMyLibraryPage();
       showUpdateMessage();
     }
@@ -38,62 +87,11 @@ export function setupButtons(movie) {
       ? 'REMOVE FROM QUEUE'
       : 'ADD TO QUEUE';
 
-    if (document.querySelector('#library-gallery').style.display === 'block') {
+    if (isOnLibraryPage()) {
       initMyLibraryPage();
       showUpdateMessage();
     }
   };
-}
-
-export function toggleHeaderButtons() {
-  function activateHome() {
-    searchForm.style.display = 'block';
-    libraryButtons.style.display = 'none';
-
-    mainGallery.style.display = 'block';
-    libraryGallery.style.display = 'none';
-    homeBtn.classList.add('active');
-    libraryBtn.classList.remove('active');
-  }
-  function activateLibrary() {
-    searchForm.style.display = 'none';
-    libraryButtons.style.display = 'flex';
-
-    mainGallery.style.display = 'none';
-    libraryGallery.style.display = 'block';
-
-    libraryBtn.classList.add('active');
-    homeBtn.classList.remove('active');
-
-    watchedButton.classList.add('library-btn-active');
-    queueButton.classList.remove('library-btn-active');
-
-    initMyLibraryPage();
-  }
-  function activateWatched() {
-    watchedButton.classList.add('library-btn-active');
-    queueButton.classList.remove('library-btn-active');
-
-    libraryGallery.style.display = 'block';
-    mainGallery.style.display = 'none';
-    initMyLibraryPage();
-  }
-
-  function activateQueue() {
-    queueButton.classList.add('library-btn-active');
-    watchedButton.classList.remove('library-btn-active');
-
-    libraryGallery.style.display = 'block';
-    mainGallery.style.display = 'none';
-    initMyLibraryPage();
-  }
-
-  homeBtn.addEventListener('click', activateHome);
-  libraryBtn.addEventListener('click', activateLibrary);
-  watchedButton.addEventListener('click', activateWatched);
-  queueButton.addEventListener('click', activateQueue);
-
-  activateHome();
 }
 
 function showUpdateMessage() {
