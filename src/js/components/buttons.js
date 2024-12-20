@@ -1,6 +1,7 @@
 // Managing the "Add to Watch" and "Add to Queue" buttons
 import { toggleStorage, isInStorage } from '../app/localStorage';
 import initMyLibraryPage from '../app/myLibraryPage';
+import { showLoader } from  './loader.js';
 
 const libraryBtn = document.getElementById('library-btn');
 const homeBtn = document.getElementById('home-btn');
@@ -54,6 +55,8 @@ export function toggleHeaderButtons() {
     libraryGallery.style.display = 'none';
     homeBtn.classList.add('active');
     libraryBtn.classList.remove('active');
+
+    showLoader();
   }
   function activateLibrary() {
     searchForm.style.display = 'none';
@@ -69,6 +72,8 @@ export function toggleHeaderButtons() {
     queueButton.classList.remove('library-btn-active');
 
     initMyLibraryPage();
+
+    showLoader();
   }
   function activateWatched() {
     watchedButton.classList.add('library-btn-active');
@@ -77,6 +82,8 @@ export function toggleHeaderButtons() {
     libraryGallery.style.display = 'block';
     mainGallery.style.display = 'none';
     initMyLibraryPage();
+
+    showLoader();
   }
 
   function activateQueue() {
@@ -86,6 +93,8 @@ export function toggleHeaderButtons() {
     libraryGallery.style.display = 'block';
     mainGallery.style.display = 'none';
     initMyLibraryPage();
+
+    showLoader();
   }
 
   homeBtn.addEventListener('click', activateHome);
