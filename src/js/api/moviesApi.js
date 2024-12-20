@@ -33,7 +33,7 @@ export async function fetchPopularMovies(page = currentPage) {
 
     return {
       results: moviesWithGenres,
-      total_pages: limitedTotalPages
+      total_pages: limitedTotalPages,
     };
   } catch (error) {
     console.error('Error fetching popular movies:', error);
@@ -63,9 +63,10 @@ export async function searchMovies(query, page = 1) {
     const genres = await getGenres();
     const moviesWithGenres = data.results.map(movie => ({
       ...movie,
-      genre_names: movie.genre_ids?.map(
-        id => genres.find(genre => genre.id === id)?.name || 'Unknown'
-      ) || [],
+      genre_names:
+        movie.genre_ids?.map(
+          id => genres.find(genre => genre.id === id)?.name || 'Unknown'
+        ) || [],
     }));
 
     // Limit total pages to 20
@@ -73,7 +74,7 @@ export async function searchMovies(query, page = 1) {
 
     return {
       results: moviesWithGenres,
-      total_pages: limitedTotalPages
+      total_pages: limitedTotalPages,
     };
   } catch (error) {
     console.error('Error fetching movies:', error);

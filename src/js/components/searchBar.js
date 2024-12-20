@@ -1,29 +1,36 @@
 // Logic for the search bar (including input events)
-
+import { renderSearchedMovies } from '../app/searchPage';
+import { showLoader } from './loader';
 const searchText = document.querySelector('.search');
 const searchButton = document.querySelector('.search-button');
-let currentSearchQuery = ''; 
+const loader = document.querySelector('.loader');
 
-import { renderSearchedMovies } from './movieList';
-
-async function handleSearch(event) {
-  event.preventDefault();
+// Event listener pentru butonul de cautare
+searchButton.addEventListener('click', function (e) {
+  e.preventDefault();
+  const page = 1;
   if (searchText.value.trim() === '') return;
 
-  // showLoader(); 
-  currentSearchQuery = searchText.value.trim();
-  await renderSearchedMovies(currentSearchQuery, 1); 
-  searchText.value = ''; 
-}
+  showLoader();
+  renderSearchedMovies(searchText.value.trim(), page).finally(() => {
+    loader.classList.remove('show');
+  });
 
-
-searchButton.addEventListener('click', handleSearch);
-
-
-searchText.addEventListener('keydown', async function (e) {
-  if (e.key === 'Enter') {
-    await handleSearch(e); 
-  }
+  searchText.value = '';
 });
 
-export { currentSearchQuery };
+// Event listener pentru tasta Enter
+searchText.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const page = 1;
+    if (searchText.value.trim() === '') return;
+
+    showLoader();
+    renderSearchedMovies(searchText.value.trim(), page).finally(() => {
+      loader.classList.remove('show');
+    });
+
+    searchText.value = '';
+  }
+});

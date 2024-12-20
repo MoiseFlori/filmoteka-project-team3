@@ -8,7 +8,6 @@ import { generateMovieHTML } from '../components/movieList.js';
 import { getGenres } from '../api/genresApi';
 import { searchMovies } from '../api/moviesApi';
 
-
 // filme gasite prin search
 export async function renderSearchedMovies(query, page) {
   const galleryElement = document.querySelector('.movies');
@@ -18,7 +17,6 @@ export async function renderSearchedMovies(query, page) {
     console.log('Apelare la funcția renderSearchedMovies...');
     const moviesData = await searchMovies(query, page);
 
-   
     const movies = moviesData?.results || [];
 
     if (!Array.isArray(movies) || movies.length === 0) {
@@ -32,22 +30,18 @@ export async function renderSearchedMovies(query, page) {
       return;
     }
 
- 
     const genres = await getGenres();
 
- 
     const moviesWithGenres = movies.map(movie => ({
       ...movie,
       genre_names: Array.isArray(movie.genre_ids)
         ? movie.genre_ids.map(
             id => genres.find(genre => genre.id === id)?.name || 'Unknown Genre'
           )
-        : [], 
+        : [],
     }));
 
- 
     errorElement.style.display = 'none';
-
 
     const moviesHTML = moviesWithGenres.map(generateMovieHTML).join('');
     galleryElement.innerHTML = moviesHTML;
