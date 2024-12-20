@@ -1,18 +1,24 @@
 // Logic for the search bar (including input events)
 import { renderSearchedMovies } from '../app/searchPage';
 import { showLoader } from './loader';
+
 const searchText = document.querySelector('.search');
 const searchButton = document.querySelector('.search-button');
 const loader = document.querySelector('.loader');
 
-// Event listener pentru butonul de cautare
+export let currentSearchQuery = ''; 
+
+// Event listener pentru butonul de căutare
 searchButton.addEventListener('click', function (e) {
   e.preventDefault();
   const page = 1;
-  if (searchText.value.trim() === '') return;
+  const query = searchText.value.trim();
 
+  if (query === '') return;
+
+  currentSearchQuery = query; 
   showLoader();
-  renderSearchedMovies(searchText.value.trim(), page).finally(() => {
+  renderSearchedMovies(query, page).finally(() => {
     loader.classList.remove('show');
   });
 
@@ -24,10 +30,13 @@ searchText.addEventListener('keydown', function (e) {
   if (e.key === 'Enter') {
     e.preventDefault();
     const page = 1;
-    if (searchText.value.trim() === '') return;
+    const query = searchText.value.trim();
 
+    if (query === '') return;
+
+    currentSearchQuery = query; 
     showLoader();
-    renderSearchedMovies(searchText.value.trim(), page).finally(() => {
+    renderSearchedMovies(query, page).finally(() => {
       loader.classList.remove('show');
     });
 
