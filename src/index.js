@@ -3,7 +3,7 @@ import './sass/_pagination.scss';
 
 import './js/components/searchBar';
 
-import { showLoader } from  './js/components/loader.js';
+import { showLoader } from './js/components/loader.js';
 
 import { renderMovies } from './js/components/movieList.js';
 import './js/components/pagination.js';
@@ -14,9 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
   toggleHeaderButtons();
 });
 
-
 document.addEventListener('click', () => {
   showLoader();
 });
-
-

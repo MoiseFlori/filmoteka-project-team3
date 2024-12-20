@@ -39,7 +39,7 @@ body {
 }
 .header-buttons-container {
   display: flex;
-  gap: 4px;
+  gap: 6px;
   margin-bottom: 8px;
 }
 
@@ -52,17 +52,14 @@ body {
   border-radius: 100px;
   gap: 10px;
   background: #ffffff;
+  color: black;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .header-btn:hover {
   color: #ffffff;
   background-color: black;
-  transform: translateY(-3px);
-}
-
-.header-btn:active {
-  transform: translateY(0);
+  transform: scale(1.05);
 }
 
 .header-btn.active {
@@ -120,13 +117,13 @@ body {
   border: none;
   background: none;
   cursor: pointer;
-  fill: white;
 }
 
 .search-icon {
   width: 14px;
   height: 14px;
   stroke: black;
+  fill: #ffffff;
 }
 
 .search-error-message {
@@ -166,12 +163,12 @@ body {
 .logo-icon {
   width: 32px;
   height: 32px;
-  fill: #ffffff;
+
   transition: transform 0.5s ease;
 }
 .logo-container:hover .logo-icon {
   transform: rotate(360deg);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.6));
 }
 
 .logo-text {
@@ -214,6 +211,10 @@ body {
     }
   }
 
+  .header-buttons-container {
+    gap: 8px;
+  }
+
   #home-btn {
     width: 83px;
     height: 38px;
@@ -225,6 +226,7 @@ body {
     height: 38px;
     padding: 12px 20px 12px 20px;
   }
+
   .header-search-form {
     order: -1;
     margin-right: 4px;
@@ -237,6 +239,7 @@ body {
     padding-right: 32px;
     font-size: 14px;
     line-height: 16.41px;
+    margin-right: 8px;
   }
 
   .search-button {
@@ -347,9 +350,9 @@ body {
 
 .library-buttons-container {
   display: flex;
-  gap: 4px;
   justify-content: center;
-  margin-top: 26px;
+  align-items: center;
+  margin: 16px auto 0;
 }
 
 .library-btn {
@@ -364,6 +367,11 @@ body {
   color: #b92f2c;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  margin-right: 6px;
+}
+
+.library-btn:last-child {
+  margin-right: 0;
 }
 
 #watched-btn {
@@ -380,16 +388,15 @@ body {
 
 #watched-btn:hover,
 #queue-btn:hover {
-  transform: translateY(-3px);
+  transform: scale(1.05);
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
   color: #ffffff;
   background-color: #b92f2c;
 }
 
-#watched-btn:active,
-#queue-btn:active {
-  transform: translateY(0);
-  box-shadow: none;
+.library-btn-active {
+  color: #ffffff;
+  background-color: #b92f2c;
 }
 
 @media (min-width: 768px) {

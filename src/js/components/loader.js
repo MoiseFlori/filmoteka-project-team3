@@ -1,4 +1,4 @@
-const loader = document.querySelector(".loader");
+const loader = document.querySelector('.loader');
 
 export function showLoader() {
   console.log('calling showLoader()');
