@@ -3,7 +3,9 @@ import { updatePageButtons, currentPage } from './pagination';
 import { currentSearchQuery } from './searchBar';
 import { gallery } from './refs';
 import { initializeModal } from '../components/modal';
-import { showLoader } from  './loader.js';
+import { showLoader } from './loader.js';
+import nothingImage from '/src/images/nothing-just.jpg';
+import errorLoading from '/src/images/error-loading.gif';
 
 export function generateMovieHTML(movie) {
   let ratingClass = 'movie__average--red';
@@ -72,7 +74,11 @@ export async function renderSearchedMovies(query, page) {
     const { results, total_pages } = await searchMovies(query, page);
 
     if (!results || results.length === 0) {
-      gallery.innerHTML = '<p>No movies found.</p>';
+      gallery.classList.add('error-state');
+      gallery.innerHTML = `<div class="error-message">
+          <p>No movies found. Please try again later.</p>
+          <img src="${nothingImage}" alt="Nothing" class="error-image" />
+        </div>`;
       updatePageButtons(0); // Hide pagination when no results
       return;
     }
@@ -86,7 +92,13 @@ export async function renderSearchedMovies(query, page) {
     updatePageButtons(total_pages);
   } catch (error) {
     console.error('Error displaying searched movies:', error);
-    gallery.innerHTML = '<p>Error loading movies.</p>';
+    gallery.classList.add('error-state'); // Adaugă clasa pentru stilurile de eroare
+    gallery.innerHTML = `
+     <div class="error-message">
+       <p>Error loading movies. Please try again later.</p>
+       <img src="${errorLoading}" alt="Error Loading" class="error-image" />
+     </div>
+   `;
     updatePageButtons(0);
   }
 }
@@ -97,7 +109,11 @@ export async function renderMovies(page = 1) {
 
     if (!results || results.length === 0) {
       console.warn('No movies found');
-      gallery.innerHTML = '<p>No movies found.</p>';
+      gallery.classList.add('error-state');
+      gallery.innerHTML = `<div class="error-message">
+          <p>No movies found. Please try again later.</p>
+          <img src="${nothingImage}" alt="Nothing" class="error-image" />
+        </div>`;
       updatePageButtons(0);
       return;
     }
@@ -130,7 +146,13 @@ export async function renderMovies(page = 1) {
   } catch (error) {
     console.error('Error displaying movies:', error);
     if (gallery) {
-      gallery.innerHTML = '<p>Error loading movies.</p>';
+      gallery.classList.add('error-state'); // Adaugă clasa pentru stilurile de eroare
+      gallery.innerHTML = `
+        <div class="error-message">
+          <p>Error loading movies. Please try again later.</p>
+          <img src="${errorLoading}" alt="Error Loading" class="error-image" />
+        </div>
+      `;
     }
     updatePageButtons(0);
   }
