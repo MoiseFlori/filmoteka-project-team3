@@ -23,6 +23,8 @@ searchButton.addEventListener('click', function (e) {
   });
 
   searchText.value = '';
+
+  showLoader();
 });
 
 // Event listener pentru tasta Enter

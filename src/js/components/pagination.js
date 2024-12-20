@@ -1,5 +1,6 @@
 import { renderMovies, renderSearchedMovies } from './movieList';
 import { currentSearchQuery } from './searchBar';
+import { showLoader } from  './loader.js';
 
 const btn1Ref = document.querySelector('[data-index="1"]');
 const btn2Ref = document.querySelector('[data-index="2"]');
@@ -93,6 +94,9 @@ async function onPaginationClick(event) {
       }
     }
   }
+  
+  showLoader();
+
 }
 
 function defineResultsPerPage() {

@@ -1,6 +1,7 @@
 // Managing the "Add to Watch" and "Add to Queue" buttons
 import { toggleStorage, isInStorage } from '../app/localStorage';
 import initMyLibraryPage from '../app/myLibraryPage';
+import { showLoader } from  './loader.js';
 
 const libraryBtn = document.getElementById('library-btn');
 const homeBtn = document.getElementById('home-btn');

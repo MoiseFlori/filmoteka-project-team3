@@ -3,6 +3,7 @@ import { updatePageButtons, currentPage } from './pagination';
 import { currentSearchQuery } from './searchBar';
 import { gallery } from './refs';
 import { initializeModal } from '../components/modal';
+import { showLoader } from  './loader.js';
 
 export function generateMovieHTML(movie) {
   let ratingClass = 'movie__average--red';
@@ -118,6 +119,7 @@ export async function renderMovies(page = 1) {
         if (movieId) {
           console.log('Clicked movie ID:', movieId);
           initializeModal(movieId);
+          showLoader();
         } else {
           console.error('Movie ID not found in clicked item');
         }

@@ -1,3 +1,5 @@
+import { showLoader } from  './loader.js';
+
 export function initializeTrailerModal() {
   const trailerModalWrapper = document.getElementById(
     'trailer-modal-container'
@@ -15,6 +17,8 @@ export function initializeTrailerModal() {
         allowfullscreen>
       </iframe>`;
     trailerModalWrapper.classList.add('open');
+
+    showLoader();
   }
 
   function closeTrailerModal() {
