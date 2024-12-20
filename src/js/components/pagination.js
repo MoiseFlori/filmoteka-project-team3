@@ -22,15 +22,17 @@ let totalPages = 20;
 paginationRef.addEventListener('click', onPaginationClick);
 
 function updatePageButtons(total) {
-  totalPages = Math.min(total || 20, 20);
+  totalPages = total || 1;
   
-  paginationRef.style.display = 'flex';
+    
+  paginationRef.style.display = totalPages <= 1 ? 'none' : 'flex';
   
   const pageButtons = [btn1Ref, btn2Ref, btn3Ref, btn4Ref, btn5Ref];
   pageButtons.forEach(btn => btn.hidden = true);
   
-  // Show only the buttons needed
-  for (let i = 0; i < Math.min(totalPages, 5); i++) {
+  // Arătăm maxim 5 butoane, chiar dacă avem mai multe pagini
+  const visibleButtons = Math.min(totalPages, 5);
+  for (let i = 0; i < visibleButtons; i++) {
     pageButtons[i].hidden = false;
     pageButtons[i].textContent = i + 1;
     pageButtons[i].classList.toggle('pagination--current', i + 1 === currentPage);
@@ -38,23 +40,21 @@ function updatePageButtons(total) {
 
   lastPageRef.textContent = totalPages;
   
-  // Hide first button and dots if we're at the start or have few pages
+  // Actualizăm vizibilitatea butoanelor de navigare
   firstPageRef.hidden = currentPage <= 3 || totalPages <= 5;
   prevDotsRef.hidden = currentPage <= 3 || totalPages <= 5;
   
-  // Hide last button and dots if we're at the end or have few pages
   lastPageRef.hidden = currentPage >= totalPages - 2 || totalPages <= 5;
   afterDotsRef.hidden = currentPage >= totalPages - 2 || totalPages <= 5;
   
-  // Show/hide arrows based only on current position
   leftArrowRef.hidden = currentPage <= 1;
   rightArrowRef.hidden = currentPage >= totalPages;
 
-  // Adjust button numbers for when we're near the end
+  // Ajustăm numerele butoanelor când suntem aproape de sfârșit
   if (currentPage > 3 && totalPages > 5) {
     let startPage = currentPage - 2;
     if (startPage + 4 > totalPages) {
-      startPage = totalPages - 4;
+      startPage = Math.max(1, totalPages - 4);
     }
     pageButtons.forEach((btn, index) => {
       if (!btn.hidden) {

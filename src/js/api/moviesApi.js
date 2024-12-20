@@ -9,7 +9,8 @@ import { getGenres } from './genresApi.js';
 import { currentPage } from '../components/pagination';
 
 export async function fetchPopularMovies(page = currentPage) {
-  console.log('Fetching popular movies for page:', page);
+  const validatedPage = Math.min(Math.max(1, page), 500);
+  console.log('Fetching popular movies for page:', validatedPage);
   const apiUrl = `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`;
 
   try {
@@ -29,11 +30,11 @@ export async function fetchPopularMovies(page = currentPage) {
       ),
     }));
 
-    const limitedTotalPages = Math.min(data.total_pages, 20);
+    const total_pages = Math.min(data.total_pages, 500);
 
     return {
       results: moviesWithGenres,
-      total_pages: limitedTotalPages,
+      total_pages,
     };
   } catch (error) {
     console.error('Error fetching popular movies:', error);
@@ -42,6 +43,7 @@ export async function fetchPopularMovies(page = currentPage) {
 }
 
 export async function searchMovies(query, page = 1) {
+  const validatedPage = Math.min(Math.max(1, page), 500);
   const searchParams = new URLSearchParams({
     api_key: API_KEY,
     query: query,
@@ -69,12 +71,11 @@ export async function searchMovies(query, page = 1) {
         ) || [],
     }));
 
-    // Limit total pages to 20
-    const limitedTotalPages = Math.min(data.total_pages, 20);
-
+    const total_pages = Math.min(data.total_pages, 500);
+    
     return {
       results: moviesWithGenres,
-      total_pages: limitedTotalPages,
+      total_pages: data.total_pages, // Eliminăm limitarea la 20 de pagini
     };
   } catch (error) {
     console.error('Error fetching movies:', error);
