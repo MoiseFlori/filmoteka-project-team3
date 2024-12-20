@@ -12,7 +12,7 @@ const queueButton = document.getElementById('queue-button');
 const mainGallery = document.querySelector('.gallery');
 const libraryGallery = document.querySelector('#library-gallery');
 
-let currentPage = 'home'; // Menține starea activă a paginii
+let currentPage = 'home'; 
 
 function isOnLibraryPage() {
   return currentPage === 'library';
@@ -24,27 +24,27 @@ export function toggleHeaderButtons() {
   }
 
   function activateHome() {
-    currentPage = 'home'; // Actualizează pagina curentă
+    currentPage = 'home'; 
     searchForm.style.display = 'block';
     libraryButtons.style.display = 'none';
 
     mainGallery.style.display = 'block';
     libraryGallery.style.display = 'none';
 
-    resetActiveButtons(); // Resetează starea tuturor butoanelor
-    homeBtn.classList.add('active'); // Evidențiază butonul Home
+    resetActiveButtons(); 
+    homeBtn.classList.add('active'); 
   }
 
   function activateLibrary() {
-    currentPage = 'library'; // Actualizează pagina curentă
+    currentPage = 'library'; 
     searchForm.style.display = 'none';
     libraryButtons.style.display = 'flex';
 
     mainGallery.style.display = 'none';
     libraryGallery.style.display = 'block';
 
-    resetActiveButtons(); // Resetează starea tuturor butoanelor
-    libraryBtn.classList.add('active'); // Evidențiază butonul Library
+    resetActiveButtons(); 
+    libraryBtn.classList.add('active'); 
 
     watchedButton.classList.add('library-btn-active');
     queueButton.classList.remove('library-btn-active');
@@ -55,7 +55,7 @@ export function toggleHeaderButtons() {
   homeBtn.addEventListener('click', activateHome);
   libraryBtn.addEventListener('click', activateLibrary);
 
-  activateHome(); // Activează implicit pagina "Home"
+  activateHome(); 
 }
 
 export function setupButtons(movie) {
