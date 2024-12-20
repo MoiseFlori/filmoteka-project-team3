@@ -86,3 +86,56 @@ a:not([class]) {
   opacity: 0;
   pointer-events: none;
 }
+
+// CUSTOM-SCROLLBAR
+
+*::-webkit-scrollbar {
+  width: 10px;
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #ff6b08;
+  border-radius: 50px;
+  border: 3px solid #ffffff;
+}
+
+/* Tema Light */
+body.light-theme {
+  --background-color: #ffffff;
+  --text-color: #000000;
+}
+
+/* Tema Dark */
+body.dark-theme {
+  --background-color: #121212;
+  --text-color: #ffffff;
+}
+
+
+
+body.light-theme .movie-title,
+body.light-theme .pagination-button,
+body.light-theme .dots {
+  color: #000000; 
+}
+
+
+
+body.dark-theme .movie-title,
+body.dark-theme .pagination-button,
+body.dark-theme .dots {
+  color: #ffffff; 
+}
+
+
+
+/* Aplică culorile */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}

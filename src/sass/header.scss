@@ -436,3 +436,68 @@ body {
     padding: 14px 24px;
   }
 }
+
+/* Theme Switcher */
+
+.theme-switcher {
+  position: relative;
+  width: 50px;
+  height: 24px;
+  z-index: 1000;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.theme-switcher__slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #b92f2c; /* red for light mode */
+  border-radius: 34px;
+  transition: background-color 0.4s ease;
+}
+
+.theme-switcher__slider::before {
+  position: absolute;
+  content: '';
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.4s ease;
+}
+
+.theme-switcher__checkbox:checked + .theme-switcher__slider {
+  background-color: #040404; /* black for dark mode */
+}
+
+.theme-switcher__checkbox:checked + .theme-switcher__slider::before {
+  transform: translateX(26px);
+}
+
+.theme-switcher__checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+@media (min-width: 768px) {
+  .theme-switcher {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 1280px) {
+  .theme-switcher {
+    top: 16px;
+    right: 30px;
+  }
+}
