@@ -63,7 +63,7 @@ function getMoviesPerPage() {
   const width = window.innerWidth;
   if (width >= 1024) return 18;
   if (width >= 768) return 18;
-  return 4;
+  return 18;
 }
 
 export async function renderSearchedMovies(query, page) {
