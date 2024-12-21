@@ -1,4 +1,4 @@
-import { searchMovies, fetchPopularMovies } from '../api/moviesApi';
+import { fetchPopularMovies } from '../api/moviesApi';
 import { updatePageButtons, currentPage } from './pagination';
 import { renderSearchedMovies } from '../app/searchPage.js';
 import { currentSearchQuery } from './searchBar';

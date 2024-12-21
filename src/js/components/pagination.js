@@ -1,4 +1,5 @@
-import { renderMovies, renderSearchedMovies } from './movieList';
+import { renderMovies } from './movieList';
+import { renderSearchedMovies } from '../app/searchPage.js';
 import { currentSearchQuery } from './searchBar';
 import { showLoader } from './loader.js';
 
@@ -41,7 +42,7 @@ function updatePageButtons(total) {
 
   lastPageRef.textContent = totalPages;
 
- // Updates visibility of navigation buttons
+  // Updates visibility of navigation buttons
   firstPageRef.hidden = currentPage <= 3 || totalPages <= 5;
   prevDotsRef.hidden = currentPage <= 3 || totalPages <= 5;
 
