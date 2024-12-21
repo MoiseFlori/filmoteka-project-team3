@@ -8,7 +8,7 @@ ul.movies {
   margin: 0;
 }
 
-/* Grila de filme pentru afișare */
+/* Movie grid for display */
 .movies,
 .movies-lib {
   display: flex;
@@ -25,7 +25,7 @@ ul.movies {
   }
 }
 
-/* Cardurile individuale ale filmelor */
+/* Individual movie cards */
 .movie_list_item {
   position: relative;
   width: 280px;
@@ -43,12 +43,12 @@ ul.movies {
   }
 }
 
-/* Efect hover pentru scalare */
+/* Hover effect for scaling */
 .movie_list_item:hover {
-  transform: scale(1.02); /* Scalare corectă */
+  transform: scale(1.02); /* Correct scaling */
 }
 
-/* Containere pentru imaginea filmului */
+/* Containers for the movie image */
 .movie__cover-inner {
   position: relative;
   // height: 360px;
@@ -60,56 +60,57 @@ ul.movies {
   object-fit: cover;
 }
 
-/* Informații despre film */
+
+/* Movie information */
 .movie-info {
   padding: 10px 0px;
 }
 
 .movie-title {
-  color: black; /* Culoarea textului */
-  font-weight: 500; /* Text puțin mai îngroșat */
+  color: black; /* Text color */
+  font-weight: 500; /* Slightly bolder text */
 }
 
 .movie-date {
-  color: #ff6b08; /* Culoarea textului datei */
-  font-weight: 500; /* Text puțin mai îngroșat */
+  color: #ff6b08; /* Data text color */
+  font-weight: 500; /* Slightly bolder text */
 }
 
-/* Rating-ul filmului */
+/* Movie rating */
 .movie__average {
-  position: absolute; /* Poziționare în colțul dreapta-sus */
+  position: absolute; /* Positioning in the top-right corner */
   top: 10px;
   right: 10px;
-  border-radius: 50%; /* Formă rotundă */
+  border-radius: 50%; /* Round shape */
   width: 36px;
   height: 36px;
-  display: flex; /* Centrare cu Flexbox */
+  display: flex; /* Centering with Flexbox */
   justify-content: center;
   align-items: center;
-  background-color: black; /* Fundal negru */
-  color: #ffffff; /* Text alb */
-  font-size: 14px; /* Dimensiunea textului */
+  background-color: black; /* Black background */
+  color: #ffffff; /* White text */
+  font-size: 14px; /* Text size */
 }
 
-/* Modificatori pentru rating-ul filmului (culori variabile) */
+/* Modifiers for the movie rating (dynamic colors) */
 .movie__average--green {
-  color: green; /* Rating mare */
+  color: green; /* High rating */
   border: 1px solid green;
 }
 
 .movie__average--orange {
-  border: 1px solid #ff6b08; /* Rating mediu */
+  border: 1px solid #ff6b08; /* Medium rating */
   color: #ff6b08;
 }
 
 .movie__average--red {
-  border: 1px solid #b92f2c; /* Rating scăzut */
+  border: 1px solid #b92f2c; /* Low rating */
   color: #b92f2c;
 }
 
-/* Efect de "întunecare" pentru imagine */
+/* Darkening effect for the image */
 .movie__cover--darkened {
-  opacity: 0.1; /* Vizibilitate mai bună */
+  opacity: 0.1; /* Better visibility */
   position: absolute;
   top: 0;
   left: 0;
@@ -117,53 +118,53 @@ ul.movies {
   max-width: 100%;
   height: 100%;
   z-index: 1;
-  border-radius: 5px; /* Colțuri rotunjite */
+  border-radius: 5px; /* Rounded corners */
 }
 
 .movie__cover--darkened:hover {
-  background-color: rgba(0, 0, 0, 0.5); /* Fundal semi-transparent */
-  cursor: pointer; /* Cursor pointer */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  cursor: pointer; /* Pointer cursor */
 }
 
-/* Fallback vizual pentru notificări */
+/* Visual fallback for notifications */
 .watched-img {
   background-image: linear-gradient(
       to right,
       rgba(0, 0, 0, 0.04),
       rgba(0, 0, 0, 0.04)
     ),
-    url(../images/no-signal.jpg); /* Imaginea de fallback */
-  background-size: cover; /* Imaginea acoperă complet containerul */
-  background-repeat: no-repeat; /* Imaginea nu se repetă */
-  background-position: center; /* Imaginea centrată */
-  height: 300px; /* Dimensiuni implicite */
+    url(../images/no-signal.jpg); /* Fallback image */
+  background-size: cover; /* The image covers the container entirely */
+  background-repeat: no-repeat; /* The image does not repeat */
+  background-position: center; /* Centered image */
+  height: 300px; /* Default dimensions */
   width: 320px;
-  margin: 0 auto; /* Centrare pe orizontală */
-  text-align: center; /* Text centrat */
+  margin: 0 auto; /* Horizontal centering */
+  text-align: center; /* Centered text */
   padding-top: 75px;
 
   @media screen and (min-width: $tablet) {
-    height: 380px; /* Dimensiuni mai mari pentru tablete */
+    height: 380px; /* Larger dimensions for tablets */
     width: 650px;
     padding-top: 100px;
   }
 
   @media screen and (min-width: $desktop) {
-    height: 425px; /* Dimensiuni mai mari pentru desktop */
+    height: 425px; /* Larger dimensions for desktop */
     width: 800px;
     padding-top: 115px;
   }
 }
 
-/* Text pentru notificarea fallback */
+/* Text for the fallback notification */
 .watched-warning {
-  color: #fff; /* Text alb */
+  color: #fff; /* White text */
   font-size: 18px;
-  line-height: 1.2; /* Spațiere între rânduri */
-  max-width: 250px; /* Lățime maximă */
-  margin: 0 auto; /* Centrare pe orizontală */
-  background-color: black; /* Fundal negru */
-  text-transform: uppercase; /* Text cu majuscule */
+  line-height: 1.2; /* Line spacing */
+  max-width: 250px; /* Maximum width */
+  margin: 0 auto; /* Horizontal alignment */
+  background-color: black; /* Black background */
+  text-transform: uppercase; /* Uppercase text */
 
   @media screen and (min-width: $tablet) {
     font-size: 20px;
@@ -178,21 +179,21 @@ ul.movies {
   }
 }
 
-/* Imaginea filmului din lista */
+/* Movie image from the list */
 .movie_list_image {
-  border-radius: 5px; /* Colțuri rotunjite */
+  border-radius: 5px; /* Rounded corners */
 
   @media screen and (min-width: $desktop) {
-    height: 592.5px; /* Înălțime specifică pentru desktop */
+    height: 592.5px; /* Specific height for desktop */
   }
 }
 
-/* Imagine de notificare când nu există filme */
+/* Notification image when no movies are available */
 .meme-notif-nothing {
-  display: none; /* Ascunsă implicit */
+  display: none; /* Hidden by default */
   margin-left: auto;
   margin-right: auto;
-  border-radius: 10px; /* Colțuri rotunjite */
+  border-radius: 10px; /* Rounded corners */
 }
 
 .movie-genres {

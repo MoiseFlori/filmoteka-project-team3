@@ -10,7 +10,7 @@ export default function initLibraryTabs({
   const queueBtn = document.querySelector('#queue-btn');
 
   watchedBtn.addEventListener('click', () => {
-    resetCurrentPage(); // Resetăm pagina când schimbăm tab-ul
+    resetCurrentPage(); // Resets the page when switching tabs
     watchedBtn.classList.add('library-btn-active');
     queueBtn.classList.remove('library-btn-active');
     onWatchedTabClick();
@@ -18,7 +18,7 @@ export default function initLibraryTabs({
   });
 
   queueBtn.addEventListener('click', () => {
-    resetCurrentPage(); // Resetăm pagina când schimbăm tab-ul
+    resetCurrentPage(); // Resets the page when switching tabs
     queueBtn.classList.add('library-btn-active');
     watchedBtn.classList.remove('library-btn-active');
     onQueueTabClick();

@@ -56,17 +56,17 @@
   
   @keyframes bounce {
     0%, 100% {
-      transform: translateY(0) scale(1); /* Dimensiunea normală */
-      filter: hue-rotate(0deg); /* Culoare inițială */
+      transform: translateY(0) scale(1); /* Normal size */
+      filter: hue-rotate(0deg); /* Initial color */
     }
     50% {
-      transform: translateY(-50px) scale(1.5); /* Mai mare la punctul de sus */
-      filter: hue-rotate(400deg); /* Schimbă nuanța */
+      transform: translateY(-50px) scale(1.5); /* Larger at the top point */
+      filter: hue-rotate(400deg); /* Change the shade */
     }
   }
   
   .heart-icon:hover {
-    transform: scale(2.2); /* Efect separat la hover */
+    transform: scale(2.2); /* Separate effect on hover */
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
   }
   

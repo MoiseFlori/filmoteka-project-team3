@@ -28,7 +28,7 @@ function updatePageButtons(total) {
   const pageButtons = [btn1Ref, btn2Ref, btn3Ref, btn4Ref, btn5Ref];
   pageButtons.forEach(btn => (btn.hidden = true));
 
-  // Arătăm maxim 5 butoane, chiar dacă avem mai multe pagini
+  // Display a maximum of 5 buttons, even if there are more pages.
   const visibleButtons = Math.min(totalPages, 5);
   for (let i = 0; i < visibleButtons; i++) {
     pageButtons[i].hidden = false;
@@ -41,7 +41,7 @@ function updatePageButtons(total) {
 
   lastPageRef.textContent = totalPages;
 
-  // Actualizăm vizibilitatea butoanelor de navigare
+ // Updates visibility of navigation buttons
   firstPageRef.hidden = currentPage <= 3 || totalPages <= 5;
   prevDotsRef.hidden = currentPage <= 3 || totalPages <= 5;
 
@@ -51,7 +51,7 @@ function updatePageButtons(total) {
   leftArrowRef.hidden = currentPage <= 1;
   rightArrowRef.hidden = currentPage >= totalPages;
 
-  // Ajustăm numerele butoanelor când suntem aproape de sfârșit
+  // Adjusts button numbering when approaching the last pages.
   if (currentPage > 3 && totalPages > 5) {
     let startPage = currentPage - 2;
     if (startPage + 4 > totalPages) {

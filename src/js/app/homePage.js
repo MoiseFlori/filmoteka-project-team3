@@ -1,7 +1,7 @@
-// Responsabil pentru încărcarea și afișarea filmelor populare pe pagina principală.
-// Realizează cereri către API-ul de filme pentru a obține o listă de filme populare.
-// Coordonează randarea listei de filme folosind componenta movieList.js.
-// Gestionează evenimentele legate de interacțiunile pe pagina principală, precum încărcarea suplimentară a filmelor sau inițializarea modalului pentru detaliile unui film.
+// Responsible for loading and displaying popular movies on the homepage.
+// Makes requests to the movie API to fetch a list of popular movies.
+// Coordinates rendering of the movie list using the movieList.js component.
+// Handles events related to interactions on the homepage, such as loading additional movies or initializing the modal for movie details.
 import { renderMovies } from './js/components/movieList.js';
 import { updatePageButtons } from '../components/pagination.js';
 

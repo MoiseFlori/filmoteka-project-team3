@@ -65,14 +65,14 @@
   }
 
   &.pagination--current {
-    background-color: #b92f2c; /* Roșu solid */
-    color: #fff !important; /* Alb */
+    background-color: #b92f2c; /* Solid red */
+    color: #fff !important; /* White */
   }
 }
 
 .pagination--current {
   background-color: #b92f2c;
-  color: white !important; /* Forțarea culorii albe */
+  color: white !important; /* Force white color */
 }
 
 .dots,
