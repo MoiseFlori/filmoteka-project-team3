@@ -1,5 +1,6 @@
 import { searchMovies, fetchPopularMovies } from '../api/moviesApi';
 import { updatePageButtons, currentPage } from './pagination';
+import { renderSearchedMovies } from '../app/searchPage.js';
 import { currentSearchQuery } from './searchBar';
 import { gallery } from './refs';
 import { initializeModal } from '../components/modal';
@@ -66,44 +67,11 @@ export function generateMovieHTML(movie) {
 }
 
 // Determines how many movies to display per page based on screen width
-function getMoviesPerPage() {
+export function getMoviesPerPage() {
   const width = window.innerWidth;
   if (width >= 1024) return 18;
   if (width >= 768) return 16;
   return 20;
-}
-
-// Renders searched movies based on the query and page
-export async function renderSearchedMovies(query, page) {
-  try {
-    const { results, total_pages } = await searchMovies(query, page);
-
-    if (!results || results.length === 0) {
-      gallery.classList.add('error-state');
-      gallery.innerHTML = `<div class="error-message">
-          <p>No movies found. Please try again later.</p>
-          <img src="${nothingImage}" alt="Nothing" class="error-image" />
-        </div>`;
-      updatePageButtons(0);
-      return;
-    }
-
-    const moviesPerPage = getMoviesPerPage();
-    const moviesToShow = results.slice(0, moviesPerPage);
-    const moviesHTML = moviesToShow.map(generateMovieHTML).join('');
-    gallery.innerHTML = moviesHTML;
-
-    updatePageButtons(total_pages);
-  } catch (error) {
-    gallery.classList.add('error-state');
-    gallery.innerHTML = `
-     <div class="error-message">
-       <p>Error loading movies. Please try again later.</p>
-       <img src="${errorLoading}" alt="Error Loading" class="error-image" />
-     </div>
-   `;
-    updatePageButtons(0);
-  }
 }
 
 // Renders popular movies for a specific page

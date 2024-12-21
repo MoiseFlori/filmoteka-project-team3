@@ -1,12 +1,12 @@
 // Logic for the search bar (including input events)
-import { renderSearchedMovies } from '../app/searchPage';  
+import { renderSearchedMovies } from '../app/searchPage';
 import { showLoader } from './loader';
 
 const searchText = document.querySelector('.search');
 const searchButton = document.querySelector('.search-button');
 const loader = document.querySelector('.loader');
 
-export let currentSearchQuery = ''; 
+export let currentSearchQuery = '';
 
 // Event listener for the search button
 searchButton.addEventListener('click', function (e) {
@@ -16,7 +16,7 @@ searchButton.addEventListener('click', function (e) {
 
   if (query === '') return;
 
-  currentSearchQuery = query; 
+  currentSearchQuery = query;
   showLoader();
   renderSearchedMovies(query, page).finally(() => {
     loader.classList.remove('show');
@@ -36,7 +36,7 @@ searchText.addEventListener('keydown', function (e) {
 
     if (query === '') return;
 
-    currentSearchQuery = query; 
+    currentSearchQuery = query;
     showLoader();
     renderSearchedMovies(query, page).finally(() => {
       loader.classList.remove('show');
