@@ -7,6 +7,7 @@ import { showLoader } from './loader.js';
 import nothingImage from '/src/images/nothing-just.jpg';
 import errorLoading from '/src/images/error-loading.gif';
 
+// Generates HTML for a movie card
 export function generateMovieHTML(movie) {
   let ratingClass = 'movie__average--red';
   if (movie.vote_average >= 7) ratingClass = 'movie__average--green';
@@ -62,13 +63,15 @@ export function generateMovieHTML(movie) {
   `;
 }
 
+// Determines how many movies to display per page based on screen width
 function getMoviesPerPage() {
   const width = window.innerWidth;
   if (width >= 1024) return 18;
-  if (width >= 768) return 18;
-  return 18;
+  if (width >= 768) return 16;
+  return 20;
 }
 
+// Renders searched movies based on the query and page
 export async function renderSearchedMovies(query, page) {
   try {
     const { results, total_pages } = await searchMovies(query, page);
@@ -79,7 +82,7 @@ export async function renderSearchedMovies(query, page) {
           <p>No movies found. Please try again later.</p>
           <img src="${nothingImage}" alt="Nothing" class="error-image" />
         </div>`;
-      updatePageButtons(0); // Hide pagination when no results
+      updatePageButtons(0);
       return;
     }
 
@@ -88,11 +91,9 @@ export async function renderSearchedMovies(query, page) {
     const moviesHTML = moviesToShow.map(generateMovieHTML).join('');
     gallery.innerHTML = moviesHTML;
 
-    // Update pagination with the actual number of pages from search results
     updatePageButtons(total_pages);
   } catch (error) {
-    console.error('Error displaying searched movies:', error);
-    gallery.classList.add('error-state'); // Adaugă clasa pentru stilurile de eroare
+    gallery.classList.add('error-state');
     gallery.innerHTML = `
      <div class="error-message">
        <p>Error loading movies. Please try again later.</p>
@@ -102,13 +103,13 @@ export async function renderSearchedMovies(query, page) {
     updatePageButtons(0);
   }
 }
+
+// Renders popular movies for a specific page
 export async function renderMovies(page = 1) {
-  console.log('Rendering movies for page:', page);
   try {
     const { results, total_pages } = await fetchPopularMovies(page);
 
     if (!results || results.length === 0) {
-      console.warn('No movies found');
       gallery.classList.add('error-state');
       gallery.innerHTML = `<div class="error-message">
           <p>No movies found. Please try again later.</p>
@@ -118,7 +119,6 @@ export async function renderMovies(page = 1) {
       return;
     }
 
-    console.log('Movies fetched:', results.length);
     const moviesPerPage = getMoviesPerPage();
     const moviesToShow = results.slice(0, moviesPerPage);
     const moviesHTML = moviesToShow.map(generateMovieHTML).join('');
@@ -133,20 +133,14 @@ export async function renderMovies(page = 1) {
 
         const movieId = movieItem.dataset.movieId;
         if (movieId) {
-          console.log('Clicked movie ID:', movieId);
           initializeModal(movieId);
           showLoader();
-        } else {
-          console.error('Movie ID not found in clicked item');
         }
       });
-    } else {
-      console.error('Gallery element not found');
     }
   } catch (error) {
-    console.error('Error displaying movies:', error);
     if (gallery) {
-      gallery.classList.add('error-state'); // Adaugă clasa pentru stilurile de eroare
+      gallery.classList.add('error-state');
       gallery.innerHTML = `
         <div class="error-message">
           <p>Error loading movies. Please try again later.</p>
@@ -158,10 +152,9 @@ export async function renderMovies(page = 1) {
   }
 }
 
-// Add resize listener to handle responsive layout
+// Re-renders movies or search results when the screen is resized
 window.addEventListener('resize', () => {
   if (gallery.children.length > 0) {
-    // Re-render current page when window is resized
     if (currentSearchQuery) {
       renderSearchedMovies(currentSearchQuery, currentPage);
     } else {
