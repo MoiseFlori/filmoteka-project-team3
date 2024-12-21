@@ -1,5 +1,5 @@
 // Logic for the search bar (including input events)
-import { renderSearchedMovies } from '../app/searchPage';
+import { renderSearchedMovies } from './movieList';  // în loc de '../app/searchPage'
 import { showLoader } from './loader';
 
 const searchText = document.querySelector('.search');

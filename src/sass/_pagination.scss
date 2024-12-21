@@ -4,13 +4,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  align-items: center;
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
   text-align: left;
-  // gap: 8px;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
 
@@ -35,8 +33,8 @@
 }
 
 .dots-btn {
-  padding: 0;              /* Fără padding suplimentar */
-  background: none;        /* Fără fundal */
+  padding: 0;
+  background: none;
   border: none;
 }
 
@@ -62,23 +60,18 @@
   &:hover,
   &:focus {
     color: #fff;
-    background-color: rgba(185, 47, 44, 0.6); /* Semi-transparent */
+    background-color: rgba(185, 47, 44, 0.6);
   }
 
-  /* Starea activă gestionată cu clasa */
   &.pagination--current {
     background-color: #b92f2c; /* Roșu solid */
-    color: #fff;
+    color: #fff !important; /* Alb */
   }
 }
 
-
 .pagination--current {
-  // width: 40px;
-  // height: 40px;
-  // border-radius: 5px;
   background-color: #b92f2c;
-  color: white;
+  color: white !important; /* Forțarea culorii albe */
 }
 
 .dots,
