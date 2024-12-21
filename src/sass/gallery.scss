@@ -56,8 +56,17 @@ ul.movies {
 
 .movie__cover {
   width: 100%;
-  height: auto;
+  height: 402px;
   object-fit: cover;
+  border-radius: 8px;
+
+  @media screen and (min-width: $tablet) {
+    height: 455px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    height: 574px;
+  }
 }
 
 /* Informații despre film */
