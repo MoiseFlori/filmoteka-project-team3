@@ -2,6 +2,28 @@ import { generateMovieHTML } from './movieList';
 import { initializeModal } from './modal';
 import { updatePageButtons } from './pagination';
 import { state } from './state';
+import { getGenres } from '../api/genresApi';
+
+async function enhanceMoviesWithGenres(movies) {
+  const genresList = await getGenres(); // Preia lista de genuri
+
+  movies.forEach(movie => {
+    // Dacă `genre_ids` există, folosește-l
+    if (movie.genre_ids) {
+      movie.genre_names = movie.genre_ids.map(id => {
+        const genre = genresList.find(g => g.id === id);
+        return genre ? genre.name : null;
+      }).filter(Boolean); // Elimină valorile null
+    }
+    // Dacă `genres` există, folosește-l
+    else if (movie.genres) {
+      movie.genre_names = movie.genres.map(genre => genre.name);
+    }
+  });
+
+  console.log('Filme după procesarea genurilor:', movies);
+}
+
 
 let allMovies = [];
 
@@ -29,7 +51,7 @@ export function localPaginate(array, currentPage) {
 }
 
 // Displays movies and pagination
-export default function renderLibraryList(movies) {
+export default async function renderLibraryList(movies) {
   allMovies = movies || [];
 
   const libraryContainer = document.querySelector('.library-list');
@@ -45,6 +67,7 @@ export default function renderLibraryList(movies) {
       </li>`;
     return;
   }
+  await enhanceMoviesWithGenres(allMovies);
 
   const paginatedMovies = localPaginate(allMovies, state.currentPage);
 

@@ -15,7 +15,7 @@ export async function fetchGenres() {
 
     return genresCache;
   } catch (error) {
-    console.error('Eroare la încărcarea genurilor:', error);
+    console.error('Error fetching genres:', error);
     return [];
   }
 }
