@@ -8,7 +8,8 @@ export function initializeTrailerModal() {
   const trailerContent = document.getElementById('trailer-content');
 
   function openTrailerModal(trailerUrl) {
-    // Adauga iframe-ul pentru trailer
+    
+// Adds the iframe for the trailer
     trailerContent.innerHTML = `
       <iframe 
         src="${trailerUrl}" 
@@ -22,7 +23,7 @@ export function initializeTrailerModal() {
   }
 
   function closeTrailerModal() {
-    trailerContent.innerHTML = ''; // Elimina iframe-ul cand se inchide modal-ul
+    trailerContent.innerHTML = ''; // Removes the iframe when the modal is closed
     trailerModalWrapper.classList.remove('open');
   }
 

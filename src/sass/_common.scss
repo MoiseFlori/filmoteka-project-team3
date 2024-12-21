@@ -104,13 +104,13 @@ a:not([class]) {
   border: 3px solid #ffffff;
 }
 
-/* Tema Light */
+/* Light Theme */
 body.light-theme {
   --background-color: #ffffff;
   --text-color: #000000;
 }
 
-/* Tema Dark */
+/* Dark Theme */
 body.dark-theme {
   --background-color: #121212;
   --text-color: #ffffff;
@@ -134,7 +134,7 @@ body.dark-theme .dots {
 
 
 
-/* Aplică culorile */
+/* Applies colors */
 body {
   background-color: var(--background-color);
   color: var(--text-color);

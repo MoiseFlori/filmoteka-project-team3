@@ -1,5 +1,5 @@
 // Logic for the search bar (including input events)
-import { renderSearchedMovies } from './movieList';  // în loc de '../app/searchPage'
+import { renderSearchedMovies } from './movieList';  // Instead of '../app/searchPage'
 import { showLoader } from './loader';
 
 const searchText = document.querySelector('.search');
@@ -8,7 +8,7 @@ const loader = document.querySelector('.loader');
 
 export let currentSearchQuery = ''; 
 
-// Event listener pentru butonul de căutare
+// Event listener for the search button
 searchButton.addEventListener('click', function (e) {
   e.preventDefault();
   const page = 1;
@@ -27,7 +27,7 @@ searchButton.addEventListener('click', function (e) {
   showLoader();
 });
 
-// Event listener pentru tasta Enter
+// Event listener for the Enter key
 searchText.addEventListener('keydown', function (e) {
   if (e.key === 'Enter') {
     e.preventDefault();
