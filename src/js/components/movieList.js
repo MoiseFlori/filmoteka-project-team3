@@ -8,6 +8,8 @@ import nothingImage from '/src/images/nothing-just.jpg';
 import errorLoading from '/src/images/error-loading.gif';
 
 // Generates HTML for a movie card
+import placeholderImage from '../../images/placeholder.png';
+
 export function generateMovieHTML(movie) {
   let ratingClass = 'movie__average--red';
   if (movie.vote_average >= 7) ratingClass = 'movie__average--green';
@@ -15,7 +17,7 @@ export function generateMovieHTML(movie) {
 
   const moviePoster = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-    : './images/no-image-available.jpg';
+    : placeholderImage;
 
   const altText = movie.poster_path
     ? `${movie.title || ''} movie poster`
