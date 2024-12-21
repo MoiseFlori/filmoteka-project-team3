@@ -110,6 +110,11 @@ function defineResultsPerPage() {
   return pageSize;
 }
 
+export function resetCurrentPage() {
+  currentPage = 1;
+  updatePageButtons(totalPages);
+}
+
 window.addEventListener('resize', defineResultsPerPage);
 
 export { 

@@ -7,21 +7,24 @@
 import { getFromStorage } from '../app/localStorage';
 import renderLibraryList from '../components/libraryList';
 import initLibraryTabs from '../components/libraryTabs';
-
+import { resetCurrentPage } from '../components/pagination'; 
 
 export default function initMyLibraryPage() {
   const libraryButtonsContainer = document.querySelector('#library-buttons');
   libraryButtonsContainer.style.display = 'block'; // Afișează butoanele din header
 
+  resetCurrentPage();
   // Afișează filmele din "WATCHED" implicit
   renderLibraryList(getFromStorage('watched'));
 
   // Initializează tab-urile folosind funcționalitatea butoanelor din header
   initLibraryTabs({
     onWatchedTabClick: () => {
+      resetCurrentPage();
       renderLibraryList(getFromStorage('watched'));
     },
     onQueueTabClick: () => {
+      resetCurrentPage();
       renderLibraryList(getFromStorage('queue'));
     },
   });

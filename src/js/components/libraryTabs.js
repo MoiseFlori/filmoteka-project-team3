@@ -1,5 +1,6 @@
 // Managing tabs between "Watched" and "Queue."
-import { showLoader } from  './loader.js';
+import { showLoader } from './loader.js';
+import { resetCurrentPage } from './pagination';
 
 export default function initLibraryTabs({
   onWatchedTabClick,
@@ -9,6 +10,7 @@ export default function initLibraryTabs({
   const queueBtn = document.querySelector('#queue-btn');
 
   watchedBtn.addEventListener('click', () => {
+    resetCurrentPage(); // Resetăm pagina când schimbăm tab-ul
     watchedBtn.classList.add('library-btn-active');
     queueBtn.classList.remove('library-btn-active');
     onWatchedTabClick();
@@ -16,6 +18,7 @@ export default function initLibraryTabs({
   });
 
   queueBtn.addEventListener('click', () => {
+    resetCurrentPage(); // Resetăm pagina când schimbăm tab-ul
     queueBtn.classList.add('library-btn-active');
     watchedBtn.classList.remove('library-btn-active');
     onQueueTabClick();
